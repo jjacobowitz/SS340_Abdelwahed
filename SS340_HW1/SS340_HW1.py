@@ -56,11 +56,14 @@ def reject_null(t_statistic, t_tabulated):
 def null_hypothesis_test(t_stat, alpha, conf, dof):
     """runs the null hypothesis test"""
     t_tab = t_tabulated(conf, dof)
+    t_stat = abs(t_stat)
     
     if reject_null(t_stat, t_tab):
         print(f"Reject the null hypothesis with alpha = {alpha*100}%")
     else:
         print(f"Fail to reject the null hypothesis with alpha = {alpha*100}%")
+        
+    return t_tab
 
 # =============================================================================
 # Problem 1
@@ -80,7 +83,8 @@ def problem1():
     dof = n - 1                             # degrees of freedom
     
     # if t-statistic > t-tabulated then we reject the null hypothesis
-    null_hypothesis_test(t_stat, alpha, conf, dof)
+    t_tab = null_hypothesis_test(t_stat, alpha, conf, dof)
+    print(f"{t_stat=:.2f}, {t_tab=:.2f}")
     
 # =============================================================================
 # Problem 2
@@ -102,14 +106,17 @@ def problem2():
     
     # summary statistics of the data
     describe = df.describe()
+    print("\nPart (a)")
     print(describe)
     
     # fraction smokers = (those who smoke > 0 cigs)/(total number of people)
     frac_smokers =  n_smokers/n
+    print("\nPart (b)")
     print(f"Percent smokers: {frac_smokers*100}%")
     
     # describing smokers and nonsmokers separately
     describe_smokers = smokers.describe()
+    print("\nPart (c)")
     print("Smokers:")
     print(describe_smokers)
     
@@ -132,10 +139,15 @@ def problem2():
     
     # mean-mean null hypothesis
     # source: http://www.stat.yale.edu/Courses/1997-98/101/meancomp.htm
-    t_stat = (s_mean_educ - ns_mean_educ)/np.sqrt(s_std_educ**2/n_smokers + ns_std_educ**2/n_nonsmokers)
+    t_stat = abs(((s_mean_educ - ns_mean_educ)
+                  /np.sqrt(
+                      s_std_educ**2/n_smokers 
+                      + ns_std_educ**2/n_nonsmokers)))
     
+    print("\nPart (d)")
     print("Level of education hypothesis test:")
-    null_hypothesis_test(t_stat, alpha, conf, dof)
+    t_tab = null_hypothesis_test(t_stat, alpha, conf, dof)
+    print(f"{t_stat=:.2f}, {t_tab=:.2f}")
     
     # hypothesis: level of income is similar for smokers and non-smokers
     # H0: smoker_mean_income - nonsmoker_mean_income = 0
@@ -150,11 +162,13 @@ def problem2():
     conf = confidence(alpha, single_tailed=False)
     dof = n - 2
     
-    t_stat = ((s_mean_inc - ns_mean_inc)
-              /np.sqrt(s_std_inc**2/n_smokers + ns_std_inc**2/n_nonsmokers))
+    t_stat = abs(((s_mean_inc - ns_mean_inc)
+              /np.sqrt(s_std_inc**2/n_smokers + ns_std_inc**2/n_nonsmokers)))
     
+    print("\nPart (e)")
     print("\nIncome education hypothesis test:")
-    null_hypothesis_test(t_stat, alpha, conf, dof)
+    t_tab = null_hypothesis_test(t_stat, alpha, conf, dof)
+    print(f"{t_stat=:.2f}, {t_tab=:.2f}")
     
     # use the data to show that smokers are more commonly non-white vs white
     n_white = len(df.white[df.white == 1])
@@ -165,12 +179,13 @@ def problem2():
     
     perc_white_smoke = n_white_smokers/n_white
     perc_nonwhite_smoke = n_nonwhite_smokers/n_nonwhite
-    print(f"\nPercent white and smoker: {perc_white_smoke*100:.2f}%")
+    print("\nPart (f)")
+    print(f"Percent white and smoker: {perc_white_smoke*100:.2f}%")
     print(f"Percent nonwhite and smoker: {perc_nonwhite_smoke*100:.2f}%")
     
     # Cigrarettes column histogram
     df["cigs"].hist()
-    plt.title("Cigarettes Histogram")
+    plt.title("Cigarettes Histogram [Part (g)]")
     plt.xlabel("Cigarettes Smoked Per Day")
     
     plt.ylabel("Count")
@@ -179,11 +194,13 @@ def problem2():
     
     # Cigarettes vs income correlation
     cigs_income_corr = df["cigs"].corr(df["income"])
-    print(f"\nCorr btwn cigs per day and income: {cigs_income_corr:.3f}")
+    print("\nPart (h)")
+    print(f"Corr btwn cigs per day and income: {cigs_income_corr:.3f}")
 
     
     # Cigarettes vs Cigarette Price
     cigs_cigprice_corr = df["cigpric"].corr(df["cigs"])
+    print("\nPart (i)")
     print(f"Corr btwn cigs per day and cig price: {cigs_cigprice_corr:.3f}")
     
     global local_vars
