@@ -12,13 +12,17 @@ import numpy as np
 from scipy.stats import t
 import pandas as pd
 import matplotlib.pyplot as plt
+import inspect
+
+local_vars = {}
 
 plt.close("all")    # close any currently open plots
 
 # =============================================================================
-# Helper functions
+# Helper Functions
 # =============================================================================
 def display_nice(title, function):
+    """Adds dividers between problem sections in the print outs"""
     print(title)
     print()
     function()
@@ -126,6 +130,8 @@ def problem2():
     conf = confidence(alpha, single_tailed=False)
     dof = n - 2
     
+    # mean-mean null hypothesis
+    # source: http://www.stat.yale.edu/Courses/1997-98/101/meancomp.htm
     t_stat = (s_mean_educ - ns_mean_educ)/np.sqrt(s_std_educ**2/n_smokers + ns_std_educ**2/n_nonsmokers)
     
     print("Level of education hypothesis test:")
@@ -144,7 +150,8 @@ def problem2():
     conf = confidence(alpha, single_tailed=False)
     dof = n - 2
     
-    t_stat = (s_mean_inc - ns_mean_inc)/np.sqrt(s_std_inc**2/n_smokers + ns_std_inc**2/n_nonsmokers)
+    t_stat = ((s_mean_inc - ns_mean_inc)
+              /np.sqrt(s_std_inc**2/n_smokers + ns_std_inc**2/n_nonsmokers))
     
     print("\nIncome education hypothesis test:")
     null_hypothesis_test(t_stat, alpha, conf, dof)
@@ -152,8 +159,9 @@ def problem2():
     # use the data to show that smokers are more commonly non-white vs white
     n_white = len(df.white[df.white == 1])
     n_nonwhite = n - n_white
-    n_white_smokers = len(smokers.white[smokers.white == 1])
-    n_nonwhite_smokers = len(smokers.white[smokers.white == 0])
+    mask_white = smokers.white == 1
+    n_white_smokers = len(smokers[mask_white])
+    n_nonwhite_smokers = len(smokers[~mask_white])
     
     perc_white_smoke = n_white_smokers/n_white
     perc_nonwhite_smoke = n_nonwhite_smokers/n_nonwhite
@@ -164,18 +172,22 @@ def problem2():
     df["cigs"].hist()
     plt.title("Cigarettes Histogram")
     plt.xlabel("Cigarettes Smoked Per Day")
+    
     plt.ylabel("Count")
     plt.grid(False)
     plt.savefig("SS340_HW1_cigaretteshist.png")
     
     # Cigarettes vs income correlation
-    income_cig_corr = df["cigs"].corr(df["income"])
-    print(f"\nCorr between number of cigs and income: {income_cig_corr:.3f}")
+    cigs_income_corr = df["cigs"].corr(df["income"])
+    print(f"\nCorr btwn cigs per day and income: {cigs_income_corr:.3f}")
 
     
     # Cigarettes vs Cigarette Price
-    cigprice_cig_corr = df["cigpric"].corr(df["cigs"])
-    print(f"Corr between cig price and number of cigs: {cigprice_cig_corr:.3f}")
+    cigs_cigprice_corr = df["cigpric"].corr(df["cigs"])
+    print(f"Corr btwn cigs per day and cig price: {cigs_cigprice_corr:.3f}")
+    
+    global local_vars
+    local_vars = inspect.currentframe().f_locals
 
 if __name__ == "__main__":
     display_nice("Problem 1", problem1)
