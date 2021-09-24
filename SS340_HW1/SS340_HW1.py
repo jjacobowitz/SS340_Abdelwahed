@@ -53,7 +53,7 @@ def reject_null(t_statistic, t_tabulated):
     """
     return t_statistic > t_tabulated
 
-def null_hypothesis_test(t_stat, alpha, conf, dof):
+def null_hypothesis_test(t_stat, alpha, conf, dof, single_tailed=True):
     """runs the null hypothesis test"""
     t_tab = t_tabulated(conf, dof)
     t_stat = abs(t_stat)
@@ -63,7 +63,12 @@ def null_hypothesis_test(t_stat, alpha, conf, dof):
     else:
         print(f"Fail to reject the null hypothesis with alpha = {alpha*100}%")
         
-    return t_tab
+    p_value = t.sf(t_stat, dof)
+    
+    if not single_tailed:
+        p_value *= 2
+        
+    return t_tab, p_value
 
 # =============================================================================
 # Problem 1
@@ -83,8 +88,8 @@ def problem1():
     dof = n - 1                             # degrees of freedom
     
     # if t-statistic > t-tabulated then we reject the null hypothesis
-    t_tab = null_hypothesis_test(t_stat, alpha, conf, dof)
-    print(f"{t_stat=:.2f}, {t_tab=:.2f}")
+    t_tab, p_val = null_hypothesis_test(t_stat, alpha, conf, dof, False)
+    print(f"{t_stat=:.2f}, {t_tab=:.2f}, {p_val=:.2f}")
     
 # =============================================================================
 # Problem 2
@@ -93,6 +98,8 @@ def problem2():
     # import the csv data
     df = pd.read_csv("Wooldrridge smoking data.csv")
     n = len(df)     # number of individuals
+    cols = df.columns
+    cols_exclude_personid = set(cols)-{"personid"}
     
     # dfs for smoker and non-smoker
     # if they smoke at least 1 cigarette, they are a smoker
@@ -105,7 +112,7 @@ def problem2():
     n_nonsmokers = len(nonsmokers)
     
     # summary statistics of the data
-    describe = df.describe()
+    describe = df[cols_exclude_personid].describe().round(2)
     print("\nPart (a)")
     print(describe)
     
@@ -115,12 +122,12 @@ def problem2():
     print(f"Percent smokers: {frac_smokers*100}%")
     
     # describing smokers and nonsmokers separately
-    describe_smokers = smokers.describe()
+    describe_smokers = smokers[cols_exclude_personid].describe().round(2)
     print("\nPart (c)")
     print("Smokers:")
     print(describe_smokers)
     
-    describe_nonsmokers = nonsmokers.describe()
+    describe_nonsmokers = nonsmokers[cols_exclude_personid].describe().round(2)
     print("Non-smokers:")
     print(describe_nonsmokers)
     
@@ -146,8 +153,8 @@ def problem2():
     
     print("\nPart (d)")
     print("Level of education hypothesis test:")
-    t_tab = null_hypothesis_test(t_stat, alpha, conf, dof)
-    print(f"{t_stat=:.2f}, {t_tab=:.2f}")
+    t_tab, p_val = null_hypothesis_test(t_stat, alpha, conf, dof, False)
+    print(f"{t_stat=:.2f}, {t_tab=:.2f}, {p_val=:.2f}")
     
     # hypothesis: level of income is similar for smokers and non-smokers
     # H0: smoker_mean_income - nonsmoker_mean_income = 0
@@ -167,8 +174,8 @@ def problem2():
     
     print("\nPart (e)")
     print("\nIncome education hypothesis test:")
-    t_tab = null_hypothesis_test(t_stat, alpha, conf, dof)
-    print(f"{t_stat=:.2f}, {t_tab=:.2f}")
+    t_tab, p_val = null_hypothesis_test(t_stat, alpha, conf, dof, False)
+    print(f"{t_stat=:.2f}, {t_tab=:.2f}, {p_val=:.2f}")
     
     # use the data to show that smokers are more commonly non-white vs white
     n_white = len(df.white[df.white == 1])
@@ -196,12 +203,28 @@ def problem2():
     cigs_income_corr = df["cigs"].corr(df["income"])
     print("\nPart (h)")
     print(f"Corr btwn cigs per day and income: {cigs_income_corr:.3f}")
+    
+    plt.figure()
+    plt.scatter(df["cigs"], df["income"])
+    plt.xlabel("Cigarettes Per Day")
+    plt.ylabel("Income [$/Year]")
+    plt.title("Income vs Cigarettes Smoked Per Day")
+    plt.savefig("SS340_HW1_incomevscigs.png")
+    plt.show()
 
     
     # Cigarettes vs Cigarette Price
     cigs_cigprice_corr = df["cigpric"].corr(df["cigs"])
     print("\nPart (i)")
     print(f"Corr btwn cigs per day and cig price: {cigs_cigprice_corr:.3f}")
+    
+    plt.figure()
+    plt.scatter(df["cigs"], df["cigpric"])
+    plt.xlabel("Cigarettes Per Day")
+    plt.ylabel("Cigarette Price [cents/Pack]")
+    plt.title("Cigarette Price vs Cigarettes Smoked Per Day")
+    plt.savefig("SS340_HW1_cigpricevscigs.png")
+    plt.show()
     
     global local_vars
     local_vars = inspect.currentframe().f_locals
