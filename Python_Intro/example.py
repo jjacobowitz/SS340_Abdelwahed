@@ -20,6 +20,7 @@ import numpy as np
 from scipy.stats import t
 import pandas as pd
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import seaborn as sn
 from sklearn import linear_model
 from sklearn.metrics import r2_score
@@ -142,7 +143,17 @@ plt.title("Length vs Weight")
 plt.legend()
 plt.show()
 
-# multiple linear regression of mpg and weight on price
+# multiple linear regression of weight and length on mpg
 mult_lin_regress = linear_model.LinearRegression()
-mult_lin_regress.fit(auto[["mpg", "weight"]], auto["price"])
-print(f"{mult_lin_regress.coef_=}, {mult_lin_regress.intercept_=}")
+X = auto[["weight", "length"]].to_numpy().reshape(-1,2)
+y = auto["mpg"].to_numpy().reshape(-1,1)
+
+mult_lin_regress.fit(X, y)
+
+y_pred = mult_lin_regress.predict(X)
+
+r_squared = r2_score(y_pred, y)
+coefs = mult_lin_regress.coef_
+intercept = mult_lin_regress.intercept_
+print(f"{coefs=}, {intercept=}, {r_squared=}")
+
