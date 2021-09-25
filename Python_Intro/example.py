@@ -38,7 +38,7 @@ print(auto_describe.round())    # print the summary statistics to the console
 #%% Correlation Matrix
 # DataFrame.corr() creates a correlation matrix of the DataFrame
 corr = auto.corr()
-print(corr)     # print correlation matrix to the console
+print(corr.round(2))            # print correlation matrix to the console
 
 # Use seaborn to visualize the correlation matrix
 plt.figure()
@@ -70,6 +70,7 @@ t_tab = t.ppf(conf, dof)
 p_val = t.sf(t_stat, dof)*2     # double because two-tailed
 print(f"{t_stat=:.2f}, {t_tab=:.2f}, {p_val=:.2f}")
 
+# Test the null hypothesis
 if t_stat > t_tab:
     print("Reject the null hypothesis")
 else:
