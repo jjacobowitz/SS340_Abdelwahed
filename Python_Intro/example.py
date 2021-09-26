@@ -20,7 +20,6 @@ import numpy as np
 from scipy.stats import t
 import pandas as pd
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import seaborn as sn
 from sklearn import linear_model
 from sklearn.metrics import r2_score
