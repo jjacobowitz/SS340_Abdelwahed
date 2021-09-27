@@ -32,7 +32,7 @@ auto = pd.read_stata("auto.dta")
 #%% Summary statistics
 # DataFrame.describe() summarizes the DataFrame
 auto_describe = auto.describe()
-print(auto_describe.round())    # print the summary statistics to the console
+print(auto_describe.round(2))    # print the summary statistics to the console
 
 #%% Correlation Matrix
 # DataFrame.corr() creates a correlation matrix of the DataFrame
@@ -48,7 +48,8 @@ plt.show()
 
 #%% Add new data
 # Add new data column titled "inefficient" which shows True if mpg < 30
-auto["inefficient"] = auto["mpg"] < 30
+auto["inefficient"] = "efficient"
+auto["inefficient"][auto["mpg"] < 30] = "inefficient"
 
 #%% t-test
 # H0: price = 6000
