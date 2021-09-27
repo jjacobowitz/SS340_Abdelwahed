@@ -9,7 +9,7 @@ Due: 10/04/2021
 Python program for Homework 1
 """
 import numpy as np
-from scipy.stats import t
+from scipy.stats import t, ttest_ind
 import pandas as pd
 import matplotlib.pyplot as plt
 import inspect
@@ -135,21 +135,12 @@ def problem2():
     # H0: smoker_mean_education - nonsmoker_mean_education = 0
     # Ha: smoker_mean_education - nonsmoker_mean_education != 0
     # For brevity, "smoker" was shortened to "s" and "nonsmoker" to "ns"
-    s_mean_educ = smokers["educ"].mean()
-    s_std_educ = smokers["educ"].std()
-    ns_mean_educ = nonsmokers["educ"].mean()
-    ns_std_educ = nonsmokers["educ"].std()
-    
     alpha = 0.05
     conf = confidence(alpha, single_tailed=False)
     dof = n - 2
     
     # mean-mean null hypothesis
-    # source: http://www.stat.yale.edu/Courses/1997-98/101/meancomp.htm
-    t_stat = abs(((s_mean_educ - ns_mean_educ)
-                  /np.sqrt(
-                      s_std_educ**2/n_smokers 
-                      + ns_std_educ**2/n_nonsmokers)))
+    t_stat, p_val = ttest_ind(smokers["educ"], nonsmokers["educ"], equal_var=False)
     
     print("\nPart (d)")
     print("Level of education hypothesis test:")
@@ -159,18 +150,14 @@ def problem2():
     # hypothesis: level of income is similar for smokers and non-smokers
     # H0: smoker_mean_income - nonsmoker_mean_income = 0
     # Ha: smoker_mean_income - nonsmoker_mean_income != 0
-    # For brevity, "smoker" was shortened to "s" and "nonsmoker" to "ns"
-    s_mean_inc = smokers["income"].mean()
-    s_std_inc = smokers["income"].std()
-    ns_mean_inc = nonsmokers["income"].mean()
-    ns_std_inc = nonsmokers["income"].std()
-    
+    # For brevity, "smoker" was shortened to "s" and "nonsmoker" to "ns"    
     alpha = 0.05
     conf = confidence(alpha, single_tailed=False)
     dof = n - 2
     
-    t_stat = abs(((s_mean_inc - ns_mean_inc)
-              /np.sqrt(s_std_inc**2/n_smokers + ns_std_inc**2/n_nonsmokers)))
+    # mean-mean null hypothesis
+    t_stat, _ = ttest_ind(smokers["income"], nonsmokers["income"], 
+                          equal_var=False)
     
     print("\nPart (e)")
     print("\nIncome education hypothesis test:")
