@@ -17,7 +17,7 @@ Example Python program displaying the following things:
 """
 #%% Importing libraries
 import numpy as np
-from scipy.stats import t
+from scipy.stats import t, ttest_1samp
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sn
@@ -54,24 +54,18 @@ auto["inefficient"] = auto["mpg"] < 30
 #%% t-test
 # H0: price = 6000
 # Ha: price != 6000
-
 H0 = 6000
 n = len(auto["price"])      # length of the price vector, i.e. how many prices
 dof = n - 1
 alpha = 0.05            # significance
 conf = 1-alpha/2        # alpha/2 because two-tailed
 
-mean_price = auto["price"].mean()
-std_price = auto["price"].std()
-SE = std_price/np.sqrt(n)       # standard error
-
-t_stat = abs((mean_price - H0)/SE)
+t_stat, p_val = ttest_1samp(auto["price"], H0)
 t_tab = t.ppf(conf, dof)
-p_val = t.sf(t_stat, dof)*2     # double because two-tailed
 print(f"{t_stat=:.2f}, {t_tab=:.2f}, {p_val=:.2f}")
 
 # Test the null hypothesis
-if t_stat > t_tab:
+if p_val > alpha:
     print("Reject the null hypothesis")
 else:
     print("Fail to reject the null hypothesis")
