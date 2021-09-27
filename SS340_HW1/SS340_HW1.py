@@ -102,34 +102,28 @@ def problem2():
     cols_exclude_personid = set(cols)-{"personid"}
     
     # dfs for smoker and non-smoker
-    # if they smoke at least 1 cigarette, they are a smoker
-    mask = df['cigs'] > 0
-    smokers = df[mask]
-    nonsmokers = df[~mask]
-    
-    # number of smokers and nonsmokers
-    n_smokers = len(smokers)
-    n_nonsmokers = len(nonsmokers)
+    # if they smoke any number of cigarettes, then they are a smoker
+    df["smoker"] = df['cigs'] > 0
     
     # summary statistics of the data
-    describe = df[cols_exclude_personid].describe().round(2)
+    describe = df.describe().round(2)
     print("\nPart (a)")
-    print(describe)
+    print(describe[cols_exclude_personid])
     
     # fraction smokers = (those who smoke > 0 cigs)/(total number of people)
-    frac_smokers =  n_smokers/n
+    frac_smokers =  df["smoker"].mean()
     print("\nPart (b)")
     print(f"Percent smokers: {frac_smokers*100}%")
     
     # describing smokers and nonsmokers separately
-    describe_smokers = smokers[cols_exclude_personid].describe().round(2)
+    describe_smokers = df[df["smoker"]].describe().round(2)
     print("\nPart (c)")
     print("Smokers:")
-    print(describe_smokers)
+    print(describe_smokers[cols_exclude_personid])
     
-    describe_nonsmokers = nonsmokers[cols_exclude_personid].describe().round(2)
+    describe_nonsmokers = df[~df["smoker"]].describe().round(2)
     print("Non-smokers:")
-    print(describe_nonsmokers)
+    print(describe_nonsmokers[cols_exclude_personid])
     
     # hypothesis: level of education is similar for smokers and non-smokers
     # H0: smoker_mean_education - nonsmoker_mean_education = 0
@@ -140,7 +134,9 @@ def problem2():
     dof = n - 2
     
     # mean-mean null hypothesis
-    t_stat, p_val = ttest_ind(smokers["educ"], nonsmokers["educ"], equal_var=False)
+    t_stat, p_val = ttest_ind(df["educ"][df["smoker"]],
+                              df["educ"][~df["smoker"]], 
+                              equal_var=False)
     
     print("\nPart (d)")
     print("Level of education hypothesis test:")
@@ -156,7 +152,8 @@ def problem2():
     dof = n - 2
     
     # mean-mean null hypothesis
-    t_stat, _ = ttest_ind(smokers["income"], nonsmokers["income"], 
+    t_stat, _ = ttest_ind(df["income"][df["smoker"]], 
+                          df["income"][~df["smoker"]], 
                           equal_var=False)
     
     print("\nPart (e)")
@@ -164,15 +161,10 @@ def problem2():
     t_tab, p_val = null_hypothesis_test(t_stat, alpha, conf, dof, False)
     print(f"{t_stat=:.2f}, {t_tab=:.2f}, {p_val=:.2f}")
     
-    # use the data to show that smokers are more commonly non-white vs white
-    n_white = len(df.white[df.white == 1])
-    n_nonwhite = n - n_white
-    mask_white = smokers.white == 1
-    n_white_smokers = len(smokers[mask_white])
-    n_nonwhite_smokers = len(smokers[~mask_white])
-    
-    perc_white_smoke = n_white_smokers/n_white
-    perc_nonwhite_smoke = n_nonwhite_smokers/n_nonwhite
+    # perc_white_smoke = n_white_smokers/n_white
+    perc_white_smoke = df["smoker"][df["white"].astype(bool)].mean()
+    # perc_nonwhite_smoke = n_nonwhite_smokers/n_nonwhite
+    perc_nonwhite_smoke = df["smoker"][~df["white"].astype(bool)].mean()
     print("\nPart (f)")
     print(f"Percent white and smoker: {perc_white_smoke*100:.2f}%")
     print(f"Percent nonwhite and smoker: {perc_nonwhite_smoke*100:.2f}%")
