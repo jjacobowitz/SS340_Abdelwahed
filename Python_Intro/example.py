@@ -16,7 +16,6 @@ Example Python program displaying the following things:
     * Linear regression
 """
 #%% Importing libraries
-import numpy as np
 from scipy.stats import t, ttest_1samp
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -57,19 +56,19 @@ auto["inefficient"] = auto["mpg"] < 30
 H0 = 6000
 n = len(auto["price"])      # length of the price vector, i.e. how many prices
 dof = n - 1
-alpha = 0.05            # significance
-conf = 1-alpha/2        # alpha/2 because two-tailed
+alpha = 0.05                # significance
+conf = 1-alpha/2            # alpha/2 because two-tailed
 
+# calculate the t_stat and p_val of the dataset using scipy
 t_stat, p_val = ttest_1samp(auto["price"], H0)
 t_tab = t.ppf(conf, dof)
 print(f"{t_stat=:.2f}, {t_tab=:.2f}, {p_val=:.2f}")
 
 # Test the null hypothesis
 if p_val > alpha:
-    print("Reject the null hypothesis")
-else:
     print("Fail to reject the null hypothesis")
-
+else:
+    print("Reject the null hypothesis")
 
 #%% Plots
 # Plot a histogram using matplotlib
