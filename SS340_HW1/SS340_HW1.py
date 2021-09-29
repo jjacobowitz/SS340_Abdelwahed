@@ -47,28 +47,28 @@ def t_tabulated(conf, dof):
     """calculates the tabulated t-statistic"""
     return t.ppf(conf, dof)
 
-def reject_null(t_statistic, t_tabulated):
-    """returns True if the null hypothesis is rejected, False if it fails to be
-    rejected
-    """
-    return t_statistic > t_tabulated
-
-def null_hypothesis_test(t_stat, alpha, conf, dof, single_tailed=True):
-    """runs the null hypothesis test"""
-    t_tab = t_tabulated(conf, dof)
-    t_stat = abs(t_stat)
+def p_value(t_stat, dof, single_tailed=True):
+    """calculates the p-value"""
+    p_val = t.sf(t_stat, dof)
     
-    if reject_null(t_stat, t_tab):
+    # double the p-value if two-tailed
+    if not single_tailed:
+        p_val *= 2
+    
+    return p_val
+
+def reject_null(p_val, alpha):
+    """returns True if the null hypothesis is rejected, False if it fails to be
+    rejected. Bases the test on the p-value.
+    """
+    return p_val <= alpha
+
+def null_hypothesis_test(p_val, alpha):
+    """runs the null hypothesis test"""
+    if reject_null(p_val, alpha):
         print(f"Reject the null hypothesis with alpha = {alpha*100}%")
     else:
         print(f"Fail to reject the null hypothesis with alpha = {alpha*100}%")
-        
-    p_value = t.sf(t_stat, dof)
-    
-    if not single_tailed:
-        p_value *= 2
-        
-    return t_tab, p_value
 
 # =============================================================================
 # Problem 1
@@ -80,15 +80,15 @@ def problem1():
     H0 = 3.5        # null hypothesis
     alpha = 0.1     # 10% significance
     
-    # calculate the confidence
-    conf = confidence(alpha, single_tailed=False)
+    conf = confidence(alpha, single_tailed=False)   # confidence 
+    SE = standard_error(std, n)                     # standard error
+    t_stat = t_statistic(mean, H0, SE)              # t-statistic
+    dof = n - 1                                     # degrees of freedom
+    p_val = p_value(t_stat, dof, single_tailed=False)
     
-    SE = standard_error(std, n)             # standard error
-    t_stat = t_statistic(mean, H0, SE)      # t-statistic
-    dof = n - 1                             # degrees of freedom
-    
-    # if t-statistic > t-tabulated then we reject the null hypothesis
-    t_tab, p_val = null_hypothesis_test(t_stat, alpha, conf, dof, False)
+    # if p_val <= alpha, then we reject the null hypothesis
+    null_hypothesis_test(p_val, alpha)
+    t_tab = t_tabulated(conf, dof)
     print(f"{t_stat=:.2f}, {t_tab=:.2f}, {p_val=:.2f}")
     
 # =============================================================================
@@ -138,8 +138,9 @@ def problem2():
                               equal_var=False)
     
     print("\nPart (d)")
-    print("Level of education hypothesis test:")
-    t_tab, p_val = null_hypothesis_test(t_stat, alpha, conf, dof, False)
+    print("education-smoker null hypothesis test:", end=" ")
+    null_hypothesis_test(p_val, alpha)
+    t_tab = t_tabulated(conf, dof)
     print(f"{t_stat=:.2f}, {t_tab=:.2f}, {p_val=:.2f}")
     
     # hypothesis: level of income is similar for smokers and non-smokers
@@ -147,16 +148,17 @@ def problem2():
     # Ha: smoker_mean_income - nonsmoker_mean_income != 0   
     alpha = 0.05
     conf = confidence(alpha, single_tailed=False)
-    dof = n - 2
+    dof = n - 2     # -2 because there are two means used
     
     # mean-mean null hypothesis
-    t_stat, _ = ttest_ind(df["income"][df["smoker"]], 
-                          df["income"][~df["smoker"]], 
-                          equal_var=False)
+    t_stat, p_val = ttest_ind(df["income"][df["smoker"]], 
+                              df["income"][~df["smoker"]], 
+                              equal_var=False)
     
     print("\nPart (e)")
-    print("\nIncome education hypothesis test:")
-    t_tab, p_val = null_hypothesis_test(t_stat, alpha, conf, dof, False)
+    print("income-smoker null hypothesis test:", end=" ")
+    null_hypothesis_test(p_val, alpha)
+    t_tab = t_tabulated(conf, dof)
     print(f"{t_stat=:.2f}, {t_tab=:.2f}, {p_val=:.2f}")
     
     # perc_white_smoke = n_white_smokers/n_white
@@ -181,11 +183,8 @@ def problem2():
     cigs_income_r, p_val = pearsonr(df["cigs"], df["income"])
     print("\nPart (h)")
     print(f"Pearson r btwn cigs per day and income: {cigs_income_r:.3f}")
-    if p_val < alpha:
-        print("Reject the null hypothesis for cigs-income")
-    else:
-        print("Fail to reject the null hypothesis for cigs-income")
-    print(p_val, alpha)
+    print("cigs-income null hypothesis test:", end=" ")
+    null_hypothesis_test(p_val, alpha)
     
     plt.figure()
     plt.scatter(df["cigs"], df["income"])
@@ -199,13 +198,8 @@ def problem2():
     cigs_cigprice_r, p_val = pearsonr(df["cigpric"], df["cigs"])
     print("\nPart (h)")
     print(f"Pearson r btwn cigs per day and cig price: {cigs_cigprice_r:.3f}")
-    if p_val < alpha:
-        print("Reject the null hypothesis for cigs-cigprice")
-    else:
-        print("Fail to reject the null hypothesis for cigs-cigprice")
-    print(p_val, alpha)
-    
-    
+    print("cigs-cigprice null hypothesis test:", end=" ")
+    null_hypothesis_test(p_val, alpha)
     
     plt.figure()
     plt.scatter(df["cigs"], df["cigpric"])
