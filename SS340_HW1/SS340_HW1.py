@@ -172,7 +172,7 @@ def problem2():
     # Cigrarettes column histogram
     plt.figure()
     plt.hist(df["cigs"])
-    plt.title("Cigarettes Histogram [Part (g)]")
+    plt.title("Cigarettes Histogram")
     plt.xlabel("Cigarettes Smoked Per Day")
     
     plt.ylabel("Count")
@@ -188,7 +188,7 @@ def problem2():
     
     plt.figure()
     plt.scatter(df["cigs"], df["income"])
-    plt.xlabel("Cigarettes Per Day")
+    plt.xlabel("Cigarettes Smoked Per Day")
     plt.ylabel("Income [$/Year]")
     plt.title("Income vs Cigarettes Smoked Per Day")
     plt.savefig("SS340_HW1_incomevscigs.png")
@@ -203,7 +203,7 @@ def problem2():
     
     plt.figure()
     plt.scatter(df["cigs"], df["cigpric"])
-    plt.xlabel("Cigarettes Per Day")
+    plt.xlabel("Cigarettes Smoked Per Day")
     plt.ylabel("Cigarette Price [cents/Pack]")
     plt.title("Cigarette Price vs Cigarettes Smoked Per Day")
     plt.savefig("SS340_HW1_cigpricevscigs.png")
