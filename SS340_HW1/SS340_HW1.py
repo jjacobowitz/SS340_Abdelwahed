@@ -9,7 +9,7 @@ Due: 10/04/2021
 Python program for Homework 1
 """
 import numpy as np
-from scipy.stats import t, ttest_ind
+from scipy.stats import t, ttest_ind, pearsonr
 import pandas as pd
 import matplotlib.pyplot as plt
 import inspect
@@ -128,7 +128,6 @@ def problem2():
     # hypothesis: level of education is similar for smokers and non-smokers
     # H0: smoker_mean_education - nonsmoker_mean_education = 0
     # Ha: smoker_mean_education - nonsmoker_mean_education != 0
-    # For brevity, "smoker" was shortened to "s" and "nonsmoker" to "ns"
     alpha = 0.05
     conf = confidence(alpha, single_tailed=False)
     dof = n - 2
@@ -145,8 +144,7 @@ def problem2():
     
     # hypothesis: level of income is similar for smokers and non-smokers
     # H0: smoker_mean_income - nonsmoker_mean_income = 0
-    # Ha: smoker_mean_income - nonsmoker_mean_income != 0
-    # For brevity, "smoker" was shortened to "s" and "nonsmoker" to "ns"    
+    # Ha: smoker_mean_income - nonsmoker_mean_income != 0   
     alpha = 0.05
     conf = confidence(alpha, single_tailed=False)
     dof = n - 2
@@ -170,7 +168,8 @@ def problem2():
     print(f"Percent nonwhite and smoker: {perc_nonwhite_smoke*100:.2f}%")
     
     # Cigrarettes column histogram
-    df["cigs"].hist()
+    plt.figure()
+    plt.hist(df["cigs"])
     plt.title("Cigarettes Histogram [Part (g)]")
     plt.xlabel("Cigarettes Smoked Per Day")
     
@@ -179,9 +178,14 @@ def problem2():
     plt.savefig("SS340_HW1_cigaretteshist.png")
     
     # Cigarettes vs income correlation
-    cigs_income_corr = df["cigs"].corr(df["income"])
+    cigs_income_r, p_val = pearsonr(df["cigs"], df["income"])
     print("\nPart (h)")
-    print(f"Corr btwn cigs per day and income: {cigs_income_corr:.3f}")
+    print(f"Pearson r btwn cigs per day and income: {cigs_income_r:.3f}")
+    if p_val < alpha:
+        print("Reject the null hypothesis for cigs-income")
+    else:
+        print("Fail to reject the null hypothesis for cigs-income")
+    print(p_val, alpha)
     
     plt.figure()
     plt.scatter(df["cigs"], df["income"])
@@ -190,12 +194,18 @@ def problem2():
     plt.title("Income vs Cigarettes Smoked Per Day")
     plt.savefig("SS340_HW1_incomevscigs.png")
     plt.show()
-
     
-    # Cigarettes vs Cigarette Price
-    cigs_cigprice_corr = df["cigpric"].corr(df["cigs"])
-    print("\nPart (i)")
-    print(f"Corr btwn cigs per day and cig price: {cigs_cigprice_corr:.3f}")
+    # Cigarettes vs Cigarette Price    
+    cigs_cigprice_r, p_val = pearsonr(df["cigpric"], df["cigs"])
+    print("\nPart (h)")
+    print(f"Pearson r btwn cigs per day and cig price: {cigs_cigprice_r:.3f}")
+    if p_val < alpha:
+        print("Reject the null hypothesis for cigs-cigprice")
+    else:
+        print("Fail to reject the null hypothesis for cigs-cigprice")
+    print(p_val, alpha)
+    
+    
     
     plt.figure()
     plt.scatter(df["cigs"], df["cigpric"])
