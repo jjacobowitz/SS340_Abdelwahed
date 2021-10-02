@@ -12,6 +12,7 @@ import numpy as np
 from scipy.stats import t, ttest_ind, pearsonr
 import pandas as pd
 import matplotlib.pyplot as plt
+from statsmodels.stats.proportion import proportions_ztest
 import inspect
 
 local_vars = {}
@@ -110,10 +111,10 @@ def problem2():
     print("\nPart (a)")
     print(describe[cols_exclude_personid])
     
-    # fraction smokers = (those who smoke > 0 cigs)/(total number of people)
-    frac_smokers =  df["smoker"].mean()
+    # percent smokers = (those who smoke > 0 cigs)/(total number of people)
+    perc_smokers =  df["smoker"].mean()
     print("\nPart (b)")
-    print(f"Percent smokers: {frac_smokers*100}%")
+    print(f"Percent smokers: {perc_smokers*100}%")
     
     # describing smokers and nonsmokers separately
     describe_smokers = df[df["smoker"]].describe().round(2)
@@ -162,12 +163,30 @@ def problem2():
     print(f"{t_stat=:.2f}, {t_tab=:.2f}, {p_val=:.2f}")
     
     # perc_white_smoke = n_white_smokers/n_white
-    perc_white_smoke = df["smoker"][df["white"].astype(bool)].mean()
+    perc_white_smoker = df["smoker"][df["white"].astype(bool)].mean()
     # perc_nonwhite_smoke = n_nonwhite_smokers/n_nonwhite
-    perc_nonwhite_smoke = df["smoker"][~df["white"].astype(bool)].mean()
+    perc_nonwhite_smoker = df["smoker"][~df["white"].astype(bool)].mean()
     print("\nPart (f)")
-    print(f"Percent white and smoker: {perc_white_smoke*100:.2f}%")
-    print(f"Percent nonwhite and smoker: {perc_nonwhite_smoke*100:.2f}%")
+    print(f"Percent white and smoker: {perc_white_smoker*100:.2f}%")
+    print(f"Percent nonwhite and smoker: {perc_nonwhite_smoker*100:.2f}%")
+    
+    # Hypothesis testing the difference between proportions
+    # H0: perc_white_smoker = perc_nonwhite_smoker
+    # Ha: perc_white_smoker != perc_nonwhite_smoker
+    # n_white: number of white people
+    # n_nonwhite: number of nonwhite people
+    # n_white_smoker: number of white smokers
+    # n_nonwhite_smoker: number of nonwhite smokers
+    n_white = np.sum(df.white.astype(bool))
+    n_nonwhite = np.sum(~df.white.astype(bool))
+    n_white_smoker = np.sum(df.smoker[df.white.astype(bool)])
+    n_nonwhite_smoker = np.sum(df.smoker[~df.white.astype(bool)])
+    z_val, p_val = proportions_ztest(np.array([n_white_smoker, 
+                                               n_nonwhite_smoker]),
+                                     np.array([n_white, 
+                                               n_nonwhite]))
+    print("white-nonwhite smoker null hypothesis test:", end=" ")
+    null_hypothesis_test(p_val, 0.05)
     
     # Cigrarettes column histogram
     plt.figure()
