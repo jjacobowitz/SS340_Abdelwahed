@@ -185,6 +185,7 @@ def problem2():
                                                n_nonwhite_smoker]),
                                      np.array([n_white, 
                                                n_nonwhite]))
+    print(f"{z_val=:.2f},{p_val=:.2f}")
     print("white-nonwhite smoker null hypothesis test:", end=" ")
     null_hypothesis_test(p_val, 0.05)
     
