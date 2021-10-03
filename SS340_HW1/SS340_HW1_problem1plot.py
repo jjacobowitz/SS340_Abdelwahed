@@ -52,7 +52,7 @@ plt.fill_between(np.linspace(t_tab, x[-1], len(y)-indx_right), y[indx_right:],
 plt.fill_between(np.linspace(x[0], -t_tab, indx_left), y[:indx_left],
                  alpha=0.5, color="tab:blue")
 # plt.vlines(t_stat, 0, 0.4, 'r', label="t-stat")
-plt.title(f"t Distribution Plot\n(dof = {dof})")
+plt.title(f"t-Distribution Plot\n(dof = {dof})")
 plt.legend()
 plt.show()
 plt.savefig("SS340_HW1_problem1.png")
