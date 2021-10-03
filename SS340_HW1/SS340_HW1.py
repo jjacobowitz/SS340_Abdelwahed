@@ -191,7 +191,7 @@ def problem2():
     
     # Cigrarettes column histogram
     plt.figure()
-    plt.hist(df["cigs"])
+    plt.hist(df["cigs"], ec='k')
     plt.title("Cigarettes Histogram")
     plt.xlabel("Cigarettes Smoked Per Day")
     
