@@ -194,6 +194,10 @@ def problem2():
     plt.hist(df["cigs"], ec='k')
     plt.title("Cigarettes Histogram")
     plt.xlabel("Cigarettes Smoked Per Day")
+    # turn on minor ticks for both axes
+    plt.minorticks_on()
+    # turn off y-axis minor ticks
+    plt.gca().yaxis.set_tick_params(which='minor', bottom=False)
     
     plt.ylabel("Count")
     plt.grid(False)
