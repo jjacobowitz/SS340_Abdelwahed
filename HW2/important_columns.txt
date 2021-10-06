@@ -1,0 +1,1 @@
+newid,fam_size,num_auto,fincbtxm,totexpcq,totexppq,alcbevcq,alcbevpq,foodcq,foodpq,fdhomecq,fdhomepq,fdmapcq,fdmappq,fdawaycq,fdawaypq,majappcq,majapppq,tentrmnc,tentrmnp,educacq,educapq,elctrccq,elctrcpq
