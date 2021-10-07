@@ -62,7 +62,7 @@ print(data_19_describe)
 data_19["hiincome"] = data_19["fincbtxm"] > data_19["fincbtxm"].median()
 
 # total expenditure variable, sum of CQ and PQ expenditures
-data_19["totexp"] = data_19[["totexpcq", "totexppq"]].sum(axis=1)
+data_19["totexp"] = data_19[["totexpcq", "totexppq"]].sum(axis=1)*4
 
 # linear regression: all
 run_regression(data_19["fincbtxm"].to_numpy(),
