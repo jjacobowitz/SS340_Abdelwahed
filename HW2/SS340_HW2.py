@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 # close any currently open plots
 plt.close("all")
 
+# wipe the summary file
 with open("summary.txt", "w") as f:
     f.truncate()
 
@@ -154,6 +155,7 @@ print(data_19_describe2)
 # significance for null hypothesis testing
 alpha = 0.05
 
+print("\n\nPart 2e")
 # linear regression: all
 result = run_regression(data_19["fincbtxm"].to_numpy(),
                         data_19["totexp"].to_numpy(),
@@ -164,7 +166,6 @@ result = run_regression(data_19["fincbtxm"].to_numpy(),
 
 [beta_0, beta_1], p_val, stata_summary = result
 
-print("\nPart 2e")
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
 print("beta_0 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
@@ -172,6 +173,7 @@ null_hypothesis_test(p_val, alpha)
 # =============================================================================
 # Linear Regression on the High- and Low-Income Data, Part 2(f)
 # =============================================================================
+print("\n\nPart 2f high-income")
 # linear regression: high-income
 result = run_regression(data_19["fincbtxm"][data_19["hiincome"]].to_numpy(),
                         data_19["totexp"][data_19["hiincome"]].to_numpy(),
@@ -182,11 +184,11 @@ result = run_regression(data_19["fincbtxm"][data_19["hiincome"]].to_numpy(),
 
 [beta_0, beta_1], p_val, stata_summary = result
 
-print("\nPart 2f high-income")
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
 print("beta_0 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
 
+print("\n\nPart 2f low-income")
 # linear regression: low-income
 result = run_regression(data_19["fincbtxm"][~data_19["hiincome"]].to_numpy(),
                         data_19["totexp"][~data_19["hiincome"]].to_numpy(),
@@ -197,7 +199,6 @@ result = run_regression(data_19["fincbtxm"][~data_19["hiincome"]].to_numpy(),
 
 [beta_0, beta_1], p_val, stata_summary = result
 
-print("\nPart 2f low-income")
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
 print("beta_0 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
@@ -205,8 +206,9 @@ null_hypothesis_test(p_val, alpha)
 # =============================================================================
 # Linear Regression on Essential and Non-Essential Foods, Part 2(g)
 # =============================================================================
-print("\nPart 2g Essential vs Non-Essential Foods")
+print("\n\nPart 2g Essential vs Non-Essential Foods")
 
+print("\nEssential (fdhome)")
 result = run_regression(data_19["fincbtxm"].to_numpy(),
                         data_19["fdhome"].to_numpy(),
                         "Income [$/yr.]",
@@ -216,11 +218,11 @@ result = run_regression(data_19["fincbtxm"].to_numpy(),
 
 [beta_0, beta_1], p_val, stata_summary = result
 
-print("Essential")
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
 print("fdhome beta_0 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
 
+print("\nNon-Essential (alcbev)")
 result = run_regression(data_19["fincbtxm"].to_numpy(),
                         data_19["alcbev"].to_numpy(),
                         "Income [$/yr.]",
@@ -230,7 +232,6 @@ result = run_regression(data_19["fincbtxm"].to_numpy(),
 
 [beta_0, beta_1], p_val, stata_summary = result
 
-print("Non-Essential")
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
 print("alcbev beta_0 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
