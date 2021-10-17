@@ -47,7 +47,7 @@ def run_regression(x, y, xlabel, ylabel, title, save_title):
     
     # plot the data with the regression line
     plt.figure()
-    plt.scatter(x, y, label="data")
+    plt.scatter(x, y, marker='.', label="data")
     plt.plot(x_cont, y_fit, 'r', label="fit")
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
