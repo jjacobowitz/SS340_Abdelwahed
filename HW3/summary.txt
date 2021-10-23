@@ -1,0 +1,17 @@
+Birthweight vs. Cigarettes Smoked Per Day
+=========================
+                   y     
+-------------------------
+const          3390.48***
+               (1.64)    
+x1             -15.04*** 
+               (0.28)    
+R-squared      0.02      
+R-squared Adj. 0.02      
+=========================
+Standard errors in
+parentheses.
+* p<.1, ** p<.05,
+***p<.01
+
+
