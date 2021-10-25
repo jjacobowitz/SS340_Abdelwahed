@@ -1,0 +1,28 @@
+Birthweight vs. Cigarettes Smoked Per Day
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            birthweight   R-squared:                       0.020
+Model:                            OLS   Adj. R-squared:                  0.020
+Method:                 Least Squares   F-statistic:                     2806.
+Date:                Mon, 25 Oct 2021   Prob (F-statistic):               0.00
+Time:                        17:44:58   Log-Likelihood:            -1.1435e+06
+No. Observations:              146703   AIC:                         2.287e+06
+Df Residuals:                  146701   BIC:                         2.287e+06
+Df Model:                           1                                         
+Covariance Type:                  HC1                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const       3390.4775      1.645   2061.334      0.000    3387.254    3393.701
+cigsperday   -15.0438      0.284    -52.973      0.000     -15.600     -14.487
+==============================================================================
+Omnibus:                    21724.466   Durbin-Watson:                   1.870
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            60791.328
+Skew:                          -0.804   Prob(JB):                         0.00
+Kurtosis:                       5.712   Cond. No.                         6.40
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+
+
