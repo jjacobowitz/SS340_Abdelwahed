@@ -115,7 +115,7 @@ def null_hypothesis_test(p_val, alpha):
 # Read in data
 # =============================================================================
 cols = ["dmage", "mrace3", "dmar", "dlivord", "frace4", "dgestat", "csex", 
-        "dbrwt", "dplural", "cigar", "drink", "tobacco", "wgain", "lung", 
+        "dbrwt", "dplural", "cigar", "drink", "wgain", "lung", 
         "cardiac"]
 
 data = pd.read_csv("pennbirthwgt0.csv", usecols=cols)
@@ -126,8 +126,8 @@ data = pd.read_csv("pennbirthwgt0.csv", usecols=cols)
 # new column names
 rename = ["agemother", "whitemother", "married", "livebirths", 
           "whitefather", "gestationweek", "male", "birthweight", "kidsatonce", 
-          "cigsperday", "etohperweek", "tobaccouse", "pregweightgain", 
-          "lungdisease", "cardiacdisease"]
+          "cigsperday", "etohperweek", "pregweightgain", "lungdisease", 
+          "cardiacdisease"]
 
 data.rename(columns={old:new for old, new in zip(cols, rename)}, inplace=True)
 
@@ -141,7 +141,6 @@ missing = {"livebirths":99,
            "birthweight":9999,
            "cigsperday":99,
            "etohperweek":99,
-           "tobaccouse":9,
            "pregweightgain":99,
            "lungdisease":[8, 9],
            "cardiacdisease":[8, 9]}
@@ -158,8 +157,8 @@ for k, v in missing.items():
 # Correct dummy variables (Part 1b)
 # =============================================================================
 # convert boolean columns to 1 or 0 by replacing not 1s with 0s
-booleans = ["whitemother", "married", "whitefather", "male", "tobaccouse", 
-            "lungdisease", "cardiacdisease"]
+booleans = ["whitemother", "married", "whitefather", "male", "lungdisease", 
+            "cardiacdisease"]
 for boolean in booleans:
     data[boolean].replace([2, 3], 0, inplace=True)
     
@@ -282,7 +281,6 @@ covariates = ["cigsperday",
               "kidsatonce", 
               "etohperweek",                    # until here: useless controls
               "gestationweek",
-              "tobaccouse",  
               "lungdisease", 
               "cardiacdisease"]                 # until here: bad controls
 models = []
