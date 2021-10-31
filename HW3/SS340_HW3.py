@@ -211,7 +211,8 @@ of_interest = ["birthweight", "agemother", "whitemother", "married",
                "pregweightgain", "cardiacdisease"]
 
 # skeleton of the table with the desired columns
-table_of_diffs = pd.DataFrame(columns=["Smoker", 
+table_of_diffs = pd.DataFrame(columns=["Mean",
+                                       "Smoker", 
                                        "Not Smoker", 
                                        "Difference", 
                                        "p-value"])
@@ -223,26 +224,56 @@ table_of_diffs.index.name = "Variable"  # rename the index column to variable
 # hypothesis is rejected (p<0.05) then there is a difference, and the groups
 # are not equal
 for interest in of_interest:
+    mean = data[interest].mean()
     smoker_data = data[interest][smoker]
     nonsmoker_data = data[interest][~smoker]
     smoker_result = smoker_data.mean()
     nonsmoker_result = nonsmoker_data.mean()
     diff = smoker_result - nonsmoker_result
     _, p_value = ttest_ind(smoker_data, nonsmoker_data, equal_var=False)
-    row = {"Smoker":smoker_result, 
+    row = {"Mean":mean,
+           "Smoker":smoker_result, 
            "Not Smoker":nonsmoker_result, 
            "Difference":diff, 
            "p-value":round(p_value,2)}  # round to 2 decimals for clarity
     row = pd.Series(row, name=interest)
     table_of_diffs = table_of_diffs.append(row)
-    
+table_of_diffs.to_csv("SS340_HW3_TableofDiffs.csv")
+
 # =============================================================================
 # Correlation matrix (Part 2d)
 # =============================================================================
 # DataFrame.corr() creates a correlation matrix of the DataFrame
-corr = data[of_interest].corr()
+corr_matrix = data[of_interest].corr()
 print("\n")
-print(corr.round(2))
+print(corr_matrix.round(2))
+
+# OVB is a table where the birthweight and cigsperday columns are the 
+# correlation values with the variable and the sign column is the sign of the
+# OVB based on the correlations
+# probably a better way to do this..
+
+# skeleton of the table with the desired columns
+OVB = pd.DataFrame(columns=["birthweight", "cigsperday", "sign"])
+
+# fill the table with the values
+for interest in of_interest[1:]:
+    sign = 1    # will be the sign of the OVB
+    
+    # add the rows without data
+    row = pd.Series({"birthweight":np.nan, "cigsperday":np.nan, "sign":np.nan},
+                    name=interest)
+    OVB = OVB.append(row)
+    
+    # calculate the signs 
+    for col in OVB.columns:
+        if col != "sign":
+            corr = data[[col, interest]].corr().round(2).to_numpy()[0,1]
+            OVB[col][interest] = corr
+            sign *= np.sign(corr)
+        else:
+            OVB[col][interest] = sign
+OVB.to_csv("SS340_HW3_OVB.csv")
 
 # =============================================================================
 # Simple Regression (Part 2e)
@@ -271,18 +302,18 @@ null_hypothesis_test(p_val, alpha)
 # Adding more covariates (Part 2f)
 # =============================================================================
 covariates = ["cigsperday", 
-              "whitemother", 
-              "married", 
-              "livebirths", 
-              "pregweightgain",                 # until here: good controls
+              "married",
+              "livebirths",
+              "gestationweek",
+              "whitemother",                  # until here: good controls
               "agemother", 
               "whitefather", 
               "male",  
-              "kidsatonce", 
-              "etohperweek",                    # until here: useless controls
-              "gestationweek",
-              "lungdisease", 
-              "cardiacdisease"]                 # until here: bad controls
+              "kidsatonce",
+               # "etohperweek",
+               # "lungdisease", 
+               # "cardiacdisease",                 # until here: useless controls
+               "pregweightgain",]                # until here: bad controls
 models = []
 names = []
 for indx, covariate in enumerate(covariates):
