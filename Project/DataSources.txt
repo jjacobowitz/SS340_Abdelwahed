@@ -1,0 +1,2 @@
+fips to county and state: https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/home/?cid=nrcs143_013697
+yearly temperature data: https://github.com/washingtonpost/data-2C-beyond-the-limit-usa/tree/main/data/processed
