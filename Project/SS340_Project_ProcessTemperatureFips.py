@@ -53,8 +53,8 @@ else:
                 
 temps_data.fips = temps_data.apply(lambda x: f"{int(x['fips']):05d}", axis=1)
 
-# keep track of previous fip (they are sorted) to speed up the process
-# print out the fip, county, and state if fails to find in the csv
+# row-by-row input of the county and state data
+# includes some optimizations (see comments inside)
 prev_fip = ""
 for row in temps_data.itertuples():
     indx = row.Index
@@ -64,16 +64,18 @@ for row in temps_data.itertuples():
     if not from_scratch and not pd.isnull(row.county):
         continue
     
+    # doesn't look up fip if the same as previous (data is sorted by fip)
     if fip != prev_fip:
         county, state = get_county_state(fip, fips_codes)
         prev_fip = fip
+    
+    # if failed to identify the fip, log it once in the `failed` file
     if county is None and fip not in failed:
         failed.append(fip)
         print(f"failed to find {fip=}")
     else:
         temps_data.at[indx, ["county", "state"]] = (county, state)
         
-    
     if indx%1000 == 0:
         print(indx)
         
