@@ -83,7 +83,11 @@ for row in temps_data.itertuples():
 # Save results after filling in the county and state data
 # =============================================================================
 print(indx)
-temps_data.to_csv("TemperatureData.csv", index=False)
+
+# dropping the fahrenheit data column
+temps_data.to_csv("TemperatureData.csv", 
+                  columns=("fips", "year", "tempc", "county", "state"), 
+                  index=False)
 with open("failed.txt", "w") as f:
     for fail in failed:
         f.write(fail+'\n')
