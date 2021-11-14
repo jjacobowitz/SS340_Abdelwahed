@@ -72,7 +72,10 @@ def get_normal_model_summary(model, title):
 
 def get_stata_model_summary(model, name, title):    
     # create the stata-style summary table and save to a txt
-    stata_summary = summary_col(model, model_names=name, stars=True, float_format="%0.2f")
+    stata_summary = summary_col(model, 
+                                model_names=name, 
+                                stars=True, 
+                                float_format="%0.2f")
     with open('stata_summary.txt', 'a') as f:
         f.write(title)
         f.write('\n')
@@ -80,17 +83,6 @@ def get_stata_model_summary(model, name, title):
         f.write("\n\n\n")
         
     return stata_summary
-
-# def confidence(alpha, single_tailed=True):
-#     """calculates the single- or double-tailed confidence"""
-#     if single_tailed:
-#         return 1-alpha
-#     else:
-#         return 1-(alpha/2)
-    
-# def t_tabulated(conf, dof):
-#     """calculates the tabulated t-statistic"""
-#     return t.ppf(conf, dof)
 
 def reject_null(p_val, alpha):
     """returns True if the null hypothesis is rejected, False if it fails to be
