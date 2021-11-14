@@ -1,0 +1,310 @@
+Y1 and X1 for Parts 1a and 1b
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                     Y1   R-squared:                       0.904
+Model:                            OLS   Adj. R-squared:                  0.904
+Method:                 Least Squares   F-statistic:                 9.403e+04
+Date:                Sat, 13 Nov 2021   Prob (F-statistic):               0.00
+Time:                        22:36:00   Log-Likelihood:                -14081.
+No. Observations:               10000   AIC:                         2.817e+04
+Df Residuals:                    9998   BIC:                         2.818e+04
+Df Model:                           1                                         
+Covariance Type:                  HC1                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          1.9919      0.010    201.308      0.000       1.972       2.011
+X1             3.0146      0.010    306.644      0.000       2.995       3.034
+==============================================================================
+Omnibus:                        2.842   Durbin-Watson:                   1.972
+Prob(Omnibus):                  0.241   Jarque-Bera (JB):                2.869
+Skew:                          -0.040   Prob(JB):                        0.238
+Kurtosis:                       2.977   Cond. No.                         1.02
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+
+
+Y2 and X2 for Part 1c
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                     Y2   R-squared:                       0.975
+Model:                            OLS   Adj. R-squared:                  0.975
+Method:                 Least Squares   F-statistic:                 3.817e+05
+Date:                Sat, 13 Nov 2021   Prob (F-statistic):               0.00
+Time:                        22:36:01   Log-Likelihood:                -9215.1
+No. Observations:               10000   AIC:                         1.843e+04
+Df Residuals:                    9998   BIC:                         1.845e+04
+Df Model:                           1                                         
+Covariance Type:                  HC1                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          2.0003      0.006    328.880      0.000       1.988       2.012
+X2             3.7942      0.006    617.831      0.000       3.782       3.806
+==============================================================================
+Omnibus:                        0.569   Durbin-Watson:                   1.995
+Prob(Omnibus):                  0.752   Jarque-Bera (JB):                0.533
+Skew:                           0.004   Prob(JB):                        0.766
+Kurtosis:                       3.035   Cond. No.                         1.01
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+
+
+X2 and Z for Part 1d(1)
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                     X2   R-squared:                       0.099
+Model:                            OLS   Adj. R-squared:                  0.098
+Method:                 Least Squares   F-statistic:                     1135.
+Date:                Sat, 13 Nov 2021   Prob (F-statistic):          1.11e-235
+Time:                        22:36:01   Log-Likelihood:                -13626.
+No. Observations:               10000   AIC:                         2.726e+04
+Df Residuals:                    9998   BIC:                         2.727e+04
+Df Model:                           1                                         
+Covariance Type:                  HC1                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.0044      0.009     -0.467      0.640      -0.023       0.014
+Z              0.3122      0.009     33.683      0.000       0.294       0.330
+==============================================================================
+Omnibus:                        0.507   Durbin-Watson:                   1.990
+Prob(Omnibus):                  0.776   Jarque-Bera (JB):                0.493
+Skew:                          -0.017   Prob(JB):                        0.782
+Kurtosis:                       3.008   Cond. No.                         1.00
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+
+
+Y2 and X2 for Part 1d(2)
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                     Y2   R-squared:                       0.061
+Model:                            OLS   Adj. R-squared:                  0.061
+Method:                 Least Squares   F-statistic:                     676.5
+Date:                Sat, 13 Nov 2021   Prob (F-statistic):          2.23e-144
+Time:                        22:36:02   Log-Likelihood:                -27294.
+No. Observations:               10000   AIC:                         5.459e+04
+Df Residuals:                    9998   BIC:                         5.461e+04
+Df Model:                           1                                         
+Covariance Type:                  HC1                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          1.9964      0.037     53.823      0.000       1.924       2.069
+x1             3.0180      0.116     26.010      0.000       2.791       3.245
+==============================================================================
+Omnibus:                        0.538   Durbin-Watson:                   1.988
+Prob(Omnibus):                  0.764   Jarque-Bera (JB):                0.503
+Skew:                          -0.009   Prob(JB):                        0.778
+Kurtosis:                       3.029   Cond. No.                         3.20
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+
+
+Y2 and X2 for Part 1e
+                          IV2SLS Regression Results                           
+==============================================================================
+Dep. Variable:                     Y2   R-squared:                       0.934
+Model:                         IV2SLS   Adj. R-squared:                  0.934
+Method:                     Two Stage   F-statistic:                     9198.
+                        Least Squares   Prob (F-statistic):               0.00
+Date:                Sat, 13 Nov 2021                                         
+Time:                        22:36:02                                         
+No. Observations:               10000                                         
+Df Residuals:                    9998                                         
+Df Model:                           1                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          1.9964      0.010    202.981      0.000       1.977       2.016
+X2             3.0180      0.031     95.907      0.000       2.956       3.080
+==============================================================================
+Omnibus:                        0.698   Durbin-Watson:                   1.982
+Prob(Omnibus):                  0.705   Jarque-Bera (JB):                0.662
+Skew:                           0.004   Prob(JB):                        0.718
+Kurtosis:                       3.039   Cond. No.                         1.01
+==============================================================================
+
+
+log(Earnings) vs Years of Schooling for Part 2a
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:           log_earnings   R-squared:                       0.484
+Model:                            OLS   Adj. R-squared:                  0.484
+Method:                 Least Squares   F-statistic:                     2992.
+Date:                Sat, 13 Nov 2021   Prob (F-statistic):               0.00
+Time:                        22:36:02   Log-Likelihood:                -3106.5
+No. Observations:                3719   AIC:                             6217.
+Df Residuals:                    3717   BIC:                             6229.
+Df Model:                           1                                         
+Covariance Type:                  HC1                                         
+================================================================================
+                   coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------
+const            6.2695      0.073     85.567      0.000       6.126       6.413
+years_school     0.2986      0.005     54.702      0.000       0.288       0.309
+==============================================================================
+Omnibus:                      290.112   Durbin-Watson:                   2.017
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              393.500
+Skew:                           0.662   Prob(JB):                     3.57e-86
+Kurtosis:                       3.887   Cond. No.                         108.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+
+
+log(Earnings) vs Years of Schooling for Part 2b
+                          IV2SLS Regression Results                           
+==============================================================================
+Dep. Variable:           log_earnings   R-squared:                       0.424
+Model:                         IV2SLS   Adj. R-squared:                  0.424
+Method:                     Two Stage   F-statistic:                     8.230
+                        Least Squares   Prob (F-statistic):            0.00414
+Date:                Sat, 13 Nov 2021                                         
+Time:                        22:36:02                                         
+No. Observations:                3719                                         
+Df Residuals:                    3717                                         
+Df Model:                           1                                         
+================================================================================
+                   coef    std err          t      P>|t|      [0.025      0.975]
+--------------------------------------------------------------------------------
+const            7.7164      0.932      8.278      0.000       5.889       9.544
+years_school     0.1938      0.068      2.869      0.004       0.061       0.326
+==============================================================================
+Omnibus:                      442.294   Durbin-Watson:                   1.973
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              687.671
+Skew:                           0.849   Prob(JB):                    4.72e-150
+Kurtosis:                       4.247   Cond. No.                         108.
+==============================================================================
+
+
+log(Earnings) vs Years of Schooling for Part 2c1
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:           log_earnings   R-squared:                       0.484
+Model:                            OLS   Adj. R-squared:                  0.484
+Method:                 Least Squares   F-statistic:                     998.8
+Date:                Sat, 13 Nov 2021   Prob (F-statistic):               0.00
+Time:                        22:36:02   Log-Likelihood:                -3105.6
+No. Observations:                3719   AIC:                             6219.
+Df Residuals:                    3715   BIC:                             6244.
+Df Model:                           3                                         
+Covariance Type:                  HC1                                         
+================================================================================
+                   coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------
+const            6.2671      0.076     82.522      0.000       6.118       6.416
+years_school     0.2988      0.006     51.800      0.000       0.288       0.310
+mom_col         -0.0371      0.031     -1.208      0.227      -0.097       0.023
+dad_col          0.0220      0.027      0.812      0.417      -0.031       0.075
+==============================================================================
+Omnibus:                      288.935   Durbin-Watson:                   2.016
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              391.027
+Skew:                           0.661   Prob(JB):                     1.23e-85
+Kurtosis:                       3.881   Cond. No.                         112.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+
+
+Years of Schooling and Distance from College for Part 2c2(1)
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:           years_school   R-squared:                       0.006
+Model:                            OLS   Adj. R-squared:                  0.006
+Method:                 Least Squares   F-statistic:                     24.78
+Date:                Sat, 13 Nov 2021   Prob (F-statistic):           6.72e-07
+Time:                        22:36:02   Log-Likelihood:                -7469.8
+No. Observations:                3719   AIC:                         1.494e+04
+Df Residuals:                    3717   BIC:                         1.496e+04
+Df Model:                           1                                         
+Covariance Type:                  HC1                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         13.9182      0.038    364.471      0.000      13.843      13.993
+col_dist      -0.0666      0.013     -4.978      0.000      -0.093      -0.040
+==============================================================================
+Omnibus:                     5539.430   Durbin-Watson:                   1.787
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              359.399
+Skew:                           0.433   Prob(JB):                     9.07e-79
+Kurtosis:                       1.747   Cond. No.                         3.78
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+
+
+log(Earnings) vs Years of Schooling for Part 2c1(2)
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:           log_earnings   R-squared:                       0.049
+Model:                            OLS   Adj. R-squared:                  0.048
+Method:                 Least Squares   F-statistic:                     59.54
+Date:                Sat, 13 Nov 2021   Prob (F-statistic):           1.37e-37
+Time:                        22:36:02   Log-Likelihood:                -4242.6
+No. Observations:                3719   AIC:                             8493.
+Df Residuals:                    3715   BIC:                             8518.
+Df Model:                           3                                         
+Covariance Type:                  HC1                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          9.5273      1.116      8.539      0.000       7.340      11.714
+x1             0.0559      0.081      0.691      0.490      -0.103       0.215
+x2             0.1673      0.042      3.944      0.000       0.084       0.250
+x3             0.3434      0.037      9.336      0.000       0.271       0.416
+==============================================================================
+Omnibus:                      336.049   Durbin-Watson:                   1.911
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              450.000
+Skew:                           0.753   Prob(JB):                     1.92e-98
+Kurtosis:                       3.799   Cond. No.                     1.35e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+[2] The condition number is large, 1.35e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+
+Years of Schooling and Distance from College for Part 2d(2)
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:           years_school   R-squared:                       0.104
+Model:                            OLS   Adj. R-squared:                  0.103
+Method:                 Least Squares   F-statistic:                     146.9
+Date:                Sat, 13 Nov 2021   Prob (F-statistic):           5.93e-90
+Time:                        22:36:02   Log-Likelihood:                -7277.2
+No. Observations:                3719   AIC:                         1.456e+04
+Df Residuals:                    3715   BIC:                         1.459e+04
+Df Model:                           3                                         
+Covariance Type:                  HC1                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         13.5598      0.040    338.807      0.000      13.481      13.638
+col_dist      -0.0362      0.013     -2.849      0.004      -0.061      -0.011
+mom_col        0.6790      0.093      7.271      0.000       0.496       0.862
+dad_col        1.0634      0.081     13.165      0.000       0.905       1.222
+==============================================================================
+Omnibus:                      759.422   Durbin-Watson:                   1.864
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              269.694
+Skew:                           0.459   Prob(JB):                     2.73e-59
+Kurtosis:                       2.052   Cond. No.                         10.5
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+
+
