@@ -164,28 +164,6 @@ parentheses.
 ***p<.01
 
 
-log(Earnings) vs Years of Schooling for Part 2c1(2)
-
-======================
-                 l I  
-----------------------
-const          9.53***
-               (1.12) 
-x1             0.06   
-               (0.08) 
-x2             0.17***
-               (0.04) 
-x3             0.34***
-               (0.04) 
-R-squared      0.05   
-R-squared Adj. 0.05   
-======================
-Standard errors in
-parentheses.
-* p<.1, ** p<.05,
-***p<.01
-
-
 Years of Schooling and Distance from College for Part 2d(2)
 
 =======================
