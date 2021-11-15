@@ -1,0 +1,19 @@
+Option 0:
+All the data without FE dummies
+
+Option 1: Baseline
+All the data with FE dummies
+
+Option 2:
+10 year averaging
+
+Option 3:
+5 or 10 year lag (look into bygroup)
+
+		(0)	(1)	(2)	(3a)	(3b)
+time_t		 X	 X	
+time_tavg			 X
+time_t-5		 	 	 X
+time_t-10			 	 	 X
+time FE		NO	YES	YES	YES	YES
+county FE	NO	YES	YES	YES	YES
