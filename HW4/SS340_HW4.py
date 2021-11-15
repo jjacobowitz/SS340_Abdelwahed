@@ -278,7 +278,30 @@ null_hypothesis_test(p_val, alpha)
 # =============================================================================
 print(" Part 2c2 ".center(100, "="))
 
-# First Stage
+
+
+# # Second Stage
+# Z = sm.add_constant(df2.col_dist)
+# df2["years_school_hat"] = model.predict(Z)
+# X = df2[["years_school_hat", "mom_col", "dad_col"]]
+
+# result = run_regression(X.to_numpy().reshape(-1,3), df2.log_earnings)
+# model, [beta_0, beta_1, beta_2, beta_3], p_val = result
+
+# title = "log(Earnings) vs Years of Schooling for Part 2c1(2)"
+# normal_summary = get_normal_model_summary(model, title)
+# stata_summary = get_stata_model_summary(model, "log(Earnings)", title)
+
+# print(f"{beta_0=:.2f}, {beta_1=:.2f}, {beta_2=:.2f}, {beta_3=:.2f}")
+# print("log_earnings-years_school beta_0 null hypothesis test:", end=" ")
+# null_hypothesis_test(p_val, alpha)
+
+# =============================================================================
+# First Stage with and Without Parental Controls (Part 2d)
+# =============================================================================
+print(" Part 2d ".center(100, "="))
+
+# Without Parental Controls
 result = run_regression(df2.col_dist, df2.years_school)
 model, [beta_0, beta_1], p_val = result
 
@@ -289,29 +312,6 @@ stata_summary = get_stata_model_summary(model, "Years of Schooling", title)
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
 print("years_school-col_dist beta_0 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
-
-# Second Stage
-Z = sm.add_constant(df2.col_dist)
-df2["years_school_hat"] = model.predict(Z)
-X = df2[["years_school_hat", "mom_col", "dad_col"]]
-
-result = run_regression(X.to_numpy().reshape(-1,3), df2.log_earnings)
-model, [beta_0, beta_1, beta_2, beta_3], p_val = result
-
-title = "log(Earnings) vs Years of Schooling for Part 2c1(2)"
-normal_summary = get_normal_model_summary(model, title)
-stata_summary = get_stata_model_summary(model, "log(Earnings)", title)
-
-print(f"{beta_0=:.2f}, {beta_1=:.2f}, {beta_2=:.2f}, {beta_3=:.2f}")
-print("log_earnings-years_school beta_0 null hypothesis test:", end=" ")
-null_hypothesis_test(p_val, alpha)
-
-# =============================================================================
-# First Stage with and Without Parental Controls (Part 2d)
-# =============================================================================
-print(" Part 2d ".center(100, "="))
-
-# Without Parental Controls: see Part 2c2(1) above
 
 # With Parental Controls
 X = df2[["col_dist", "mom_col", "dad_col"]]
