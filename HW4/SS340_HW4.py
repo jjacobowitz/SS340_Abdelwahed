@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from statsmodels.iolib.summary2 import summary_col
 from statsmodels.sandbox.regression.gmm import IV2SLS
+from linearmodels.iv import IV2SLS as lmIV2SLS
 # from scipy.stats import t, ttest_ind
 
 # close any currently open plots
@@ -119,7 +120,7 @@ stata_summary = get_stata_model_summary(model, "Y1", title)
 
 alpha = 0.05
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
-print("Y1-X1 beta_0 null hypothesis test:", end=" ")
+print("Y1-X1 beta_1 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
 
 # =============================================================================
@@ -138,7 +139,7 @@ normal_summary = get_normal_model_summary(model, title)
 stata_summary = get_stata_model_summary(model, "Y2", title)
 
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
-print("Y2-X2 beta_0 null hypothesis test:", end=" ")
+print("Y2-X2 beta_1 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
 
 # =============================================================================
@@ -159,7 +160,7 @@ normal_summary = get_normal_model_summary(model, title)
 stata_summary = get_stata_model_summary(model, "X2", title)
 
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
-print("X2-Z beta_0 null hypothesis test:", end=" ")
+print("X2-Z beta_1 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
 
 # Second Stage
@@ -178,7 +179,7 @@ normal_summary = get_normal_model_summary(model, title)
 stata_summary = get_stata_model_summary(model, "Y2", title)
 
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
-print("Y2-X2_hat beta_0 null hypothesis test:", end=" ")
+print("Y2-X2_hat beta_1 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
 
 # =============================================================================
@@ -198,7 +199,7 @@ normal_summary = get_normal_model_summary(model, title)
 stata_summary = get_stata_model_summary(model, "Y2", title)
 
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
-print("Y2-X2 beta_0 null hypothesis test:", end=" ")
+print("Y2-X2 beta_1 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
 
 # =============================================================================
@@ -234,7 +235,7 @@ normal_summary = get_normal_model_summary(model, title)
 stata_summary = get_stata_model_summary(model, "log(Earnings)", title)
 
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
-print("log_earnings-years_school beta_0 null hypothesis test:", end=" ")
+print("log_earnings-years_school beta_1 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
 
 # =============================================================================
@@ -254,7 +255,7 @@ normal_summary = get_normal_model_summary(model, title)
 stata_summary = get_stata_model_summary(model, "log_earnings", title)
 
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
-print("log_earnings-years_school beta_0 null hypothesis test:", end=" ")
+print("log_earnings-years_school beta_1 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
 
 # =============================================================================
@@ -270,7 +271,7 @@ normal_summary = get_normal_model_summary(model, title)
 stata_summary = get_stata_model_summary(model, "log(Earnings)", title)
 
 print(f"{beta_0=:.2f}, {beta_1=:.2f}, {beta_2=:.2f}, {beta_3=:.2f}")
-print("log_earnings-years_school beta_0 null hypothesis test:", end=" ")
+print("log_earnings-years_school beta_1 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
 
 # =============================================================================
@@ -278,23 +279,23 @@ null_hypothesis_test(p_val, alpha)
 # =============================================================================
 print(" Part 2c2 ".center(100, "="))
 
+formula = "log_earnings ~ 1 + mom_col + dad_col + [years_school ~ col_dist]"
+model = lmIV2SLS.from_formula(formula, data=df2).fit(cov_type="robust")
+[beta_0, beta_1, beta_2, beta_3] = model.params
+p_value = model.pvalues[1]
 
+title = "log(Earnings) and years of schooling, holding fixed parent's college,\
+ for Part 2c2"
+normal_summary = model.summary
+with open('normal_summary.txt', 'a') as f:
+    f.write(title)
+    f.write('\n')
+    f.write(normal_summary.as_text())
+    f.write("\n\n\n")
 
-# # Second Stage
-# Z = sm.add_constant(df2.col_dist)
-# df2["years_school_hat"] = model.predict(Z)
-# X = df2[["years_school_hat", "mom_col", "dad_col"]]
-
-# result = run_regression(X.to_numpy().reshape(-1,3), df2.log_earnings)
-# model, [beta_0, beta_1, beta_2, beta_3], p_val = result
-
-# title = "log(Earnings) vs Years of Schooling for Part 2c1(2)"
-# normal_summary = get_normal_model_summary(model, title)
-# stata_summary = get_stata_model_summary(model, "log(Earnings)", title)
-
-# print(f"{beta_0=:.2f}, {beta_1=:.2f}, {beta_2=:.2f}, {beta_3=:.2f}")
-# print("log_earnings-years_school beta_0 null hypothesis test:", end=" ")
-# null_hypothesis_test(p_val, alpha)
+print(f"{beta_0=:.2f}, {beta_1=:.2f}")
+print("log_earnings-years_school beta_1 null hypothesis test:", end=" ")
+null_hypothesis_test(p_val, alpha)
 
 # =============================================================================
 # First Stage with and Without Parental Controls (Part 2d)
@@ -305,7 +306,7 @@ print(" Part 2d ".center(100, "="))
 result = run_regression(df2.col_dist, df2.years_school)
 model, [beta_0, beta_1], p_val = result
 
-title = "Years of Schooling and Distance from College for Part 2c2(1)"
+title = "Years of Schooling and Distance from College for Part 2d(1)"
 normal_summary = get_normal_model_summary(model, title)
 stata_summary = get_stata_model_summary(model, "Years of Schooling", title)
 
@@ -323,5 +324,5 @@ normal_summary = get_normal_model_summary(model, title)
 stata_summary = get_stata_model_summary(model, "Years of Schooling", title)
 
 print(f"{beta_0=:.2f}, {beta_1=:.2f}, {beta_2=:.2f}, {beta_3=:.2f}")
-print("years_school-col_dist beta_0 null hypothesis test:", end=" ")
+print("years_school-col_dist beta_1 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
