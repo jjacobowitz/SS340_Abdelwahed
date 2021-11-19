@@ -1,0 +1,18 @@
+Lagged Effect Regression
+
+=======================
+                  y    
+-----------------------
+const          -2.89***
+               (0.21)  
+tempc          0.17*** 
+               (0.01)  
+R-squared      0.14    
+R-squared Adj. 0.13    
+=======================
+Standard errors in
+parentheses.
+* p<.1, ** p<.05,
+***p<.01
+
+
