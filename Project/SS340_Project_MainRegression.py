@@ -24,7 +24,7 @@ y = y.to_numpy().reshape(-1,1)
 print("Done.")
 
 print("Creating Dummies...", end="")
-X = pd.get_dummies(data, columns=["year", "fips"], drop_first=True).to_numpy()
+X = pd.get_dummies(data, columns=["year", "fips"], drop_first=True)
 print("Done.")
 
 print("Running Regression...", end="")
@@ -39,7 +39,7 @@ stata_summary = summary_col(model,
                             regressor_order=["tempc"],
                             drop_omitted=True)
 
-with open('stata_summary.txt', 'w') as f:
+with open('Main_Regression_Summary.txt', 'w') as f:
     f.write("Main Regression")
     f.write('\n')
     f.write(stata_summary.as_text())
