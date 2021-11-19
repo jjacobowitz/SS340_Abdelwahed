@@ -30,6 +30,26 @@ with open("stata_summary.txt", "w") as f:
 # =============================================================================
 # Useful Functions
 # =============================================================================
+def plot_regression(model, x, y, xlabel, ylabel, title, save_title):
+    # add new x data for the plot fit line
+    x_cont = np.linspace(x.min(), x.max(), 1000)
+    X = sm.add_constant(x_cont)
+    
+    # generate the regression y data
+    y_fit = model.predict(X)
+
+    # plot the data with the regression line
+    plt.figure()
+    plt.scatter(x, y, marker='.', label="data")
+    plt.plot(x_cont, y_fit, 'r', label="fit")
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+    plt.savefig(save_title)
+    
 def run_regression(x, y, 
                    xlabel=None, ylabel=None, title=None, save_title=None):
     # add the x data to the model
@@ -37,26 +57,8 @@ def run_regression(x, y,
     
     # fit the model using robust regression
     model = sm.OLS(y, X).fit(cov_type="HC1")
-    
     if None not in [xlabel, ylabel, title, save_title]:
-        # add new x data for the plot fit line
-        x_cont = np.linspace(x.min(), x.max(), 1000)
-        X = sm.add_constant(x_cont)
-        
-        # generate the regression y data
-        y_fit = model.predict(X)
-    
-        # plot the data with the regression line
-        plt.figure()
-        plt.scatter(x, y, marker='.', label="data")
-        plt.plot(x_cont, y_fit, 'r', label="fit")
-        plt.xlabel(xlabel)
-        plt.ylabel(ylabel)
-        plt.title(title)
-        plt.legend()
-        plt.tight_layout()
-        plt.show()
-        plt.savefig(save_title)
+        plot_regression(model, x, y, xlabel, ylabel, title, save_title)
     
     return model, model.params, model.pvalues[1]
 
@@ -102,6 +104,11 @@ def null_hypothesis_test(p_val, alpha):
 # Import Data for Part 1
 # =============================================================================
 df1 = pd.read_stata("Simulated.dta")
+
+important_statistics = ["mean", "std", "min", "max"]
+data_describe1 = df1.describe().loc[important_statistics].transpose().round(2)
+data_describe1[important_statistics].to_csv("SS340_HW4_Describe1.csv")
+print(data_describe1)    
 
 # =============================================================================
 # Scatter with Regression Line (Part 1a and 1b)
@@ -218,6 +225,11 @@ df2.rename(columns={"yrsed":"years_school",
                     "dist":"col_dist", 
                     "dadcoll":"dad_col", 
                     "momcoll":"mom_col"}, inplace=True)
+
+important_statistics = ["mean", "std", "min", "max"]
+data_describe2 = df2.describe().loc[important_statistics].transpose().round(2)
+data_describe2[important_statistics].to_csv("SS340_HW4_Describe2.csv")
+print(data_describe2)    
 
 # =============================================================================
 # Initial Regression (Part 2a)

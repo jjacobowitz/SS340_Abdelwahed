@@ -1,0 +1,6 @@
+,mean,std,min,max
+dad_col,0.2,0.4,0.0,1.0
+mom_col,0.14,0.34,0.0,1.0
+col_dist,1.75,2.15,0.0,16.0
+years_school,13.8,1.81,12.0,18.0
+log_earnings,10.39,0.78,8.63,14.09

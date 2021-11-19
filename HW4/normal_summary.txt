@@ -4,8 +4,8 @@ Y1 and X1 for Parts 1a and 1b
 Dep. Variable:                     Y1   R-squared:                       0.904
 Model:                            OLS   Adj. R-squared:                  0.904
 Method:                 Least Squares   F-statistic:                 9.403e+04
-Date:                Mon, 15 Nov 2021   Prob (F-statistic):               0.00
-Time:                        20:09:44   Log-Likelihood:                -14081.
+Date:                Wed, 17 Nov 2021   Prob (F-statistic):               0.00
+Time:                        17:46:39   Log-Likelihood:                -14081.
 No. Observations:               10000   AIC:                         2.817e+04
 Df Residuals:                    9998   BIC:                         2.818e+04
 Df Model:                           1                                         
@@ -32,8 +32,8 @@ Y2 and X2 for Part 1c
 Dep. Variable:                     Y2   R-squared:                       0.975
 Model:                            OLS   Adj. R-squared:                  0.975
 Method:                 Least Squares   F-statistic:                 3.817e+05
-Date:                Mon, 15 Nov 2021   Prob (F-statistic):               0.00
-Time:                        20:09:44   Log-Likelihood:                -9215.1
+Date:                Wed, 17 Nov 2021   Prob (F-statistic):               0.00
+Time:                        17:46:40   Log-Likelihood:                -9215.1
 No. Observations:               10000   AIC:                         1.843e+04
 Df Residuals:                    9998   BIC:                         1.845e+04
 Df Model:                           1                                         
@@ -60,8 +60,8 @@ X2 and Z for Part 1d(1)
 Dep. Variable:                     X2   R-squared:                       0.099
 Model:                            OLS   Adj. R-squared:                  0.098
 Method:                 Least Squares   F-statistic:                     1135.
-Date:                Mon, 15 Nov 2021   Prob (F-statistic):          1.11e-235
-Time:                        20:09:45   Log-Likelihood:                -13626.
+Date:                Wed, 17 Nov 2021   Prob (F-statistic):          1.11e-235
+Time:                        17:46:40   Log-Likelihood:                -13626.
 No. Observations:               10000   AIC:                         2.726e+04
 Df Residuals:                    9998   BIC:                         2.727e+04
 Df Model:                           1                                         
@@ -88,8 +88,8 @@ Y2 and X2 for Part 1d(2)
 Dep. Variable:                     Y2   R-squared:                       0.061
 Model:                            OLS   Adj. R-squared:                  0.061
 Method:                 Least Squares   F-statistic:                     676.5
-Date:                Mon, 15 Nov 2021   Prob (F-statistic):          2.23e-144
-Time:                        20:09:45   Log-Likelihood:                -27294.
+Date:                Wed, 17 Nov 2021   Prob (F-statistic):          2.23e-144
+Time:                        17:46:41   Log-Likelihood:                -27294.
 No. Observations:               10000   AIC:                         5.459e+04
 Df Residuals:                    9998   BIC:                         5.461e+04
 Df Model:                           1                                         
@@ -117,8 +117,8 @@ Dep. Variable:                     Y2   R-squared:                       0.934
 Model:                         IV2SLS   Adj. R-squared:                  0.934
 Method:                     Two Stage   F-statistic:                     9198.
                         Least Squares   Prob (F-statistic):               0.00
-Date:                Mon, 15 Nov 2021                                         
-Time:                        20:09:45                                         
+Date:                Wed, 17 Nov 2021                                         
+Time:                        17:46:41                                         
 No. Observations:               10000                                         
 Df Residuals:                    9998                                         
 Df Model:                           1                                         
@@ -141,8 +141,8 @@ log(Earnings) vs Years of Schooling for Part 2a
 Dep. Variable:           log_earnings   R-squared:                       0.484
 Model:                            OLS   Adj. R-squared:                  0.484
 Method:                 Least Squares   F-statistic:                     2992.
-Date:                Mon, 15 Nov 2021   Prob (F-statistic):               0.00
-Time:                        20:09:45   Log-Likelihood:                -3106.5
+Date:                Wed, 17 Nov 2021   Prob (F-statistic):               0.00
+Time:                        17:46:42   Log-Likelihood:                -3106.5
 No. Observations:                3719   AIC:                             6217.
 Df Residuals:                    3717   BIC:                             6229.
 Df Model:                           1                                         
@@ -170,8 +170,8 @@ Dep. Variable:           log_earnings   R-squared:                       0.424
 Model:                         IV2SLS   Adj. R-squared:                  0.424
 Method:                     Two Stage   F-statistic:                     8.230
                         Least Squares   Prob (F-statistic):            0.00414
-Date:                Mon, 15 Nov 2021                                         
-Time:                        20:09:45                                         
+Date:                Wed, 17 Nov 2021                                         
+Time:                        17:46:42                                         
 No. Observations:                3719                                         
 Df Residuals:                    3717                                         
 Df Model:                           1                                         
@@ -194,8 +194,8 @@ log(Earnings) vs Years of Schooling for Part 2c1
 Dep. Variable:           log_earnings   R-squared:                       0.484
 Model:                            OLS   Adj. R-squared:                  0.484
 Method:                 Least Squares   F-statistic:                     998.8
-Date:                Mon, 15 Nov 2021   Prob (F-statistic):               0.00
-Time:                        20:09:45   Log-Likelihood:                -3105.6
+Date:                Wed, 17 Nov 2021   Prob (F-statistic):               0.00
+Time:                        17:46:42   Log-Likelihood:                -3105.6
 No. Observations:                3719   AIC:                             6219.
 Df Residuals:                    3715   BIC:                             6244.
 Df Model:                           3                                         
@@ -224,8 +224,8 @@ log(Earnings) and years of schooling, holding fixed parent's college, for Part 2
 Dep. Variable:           log_earnings   R-squared:                      0.2972
 Estimator:                    IV-2SLS   Adj. R-squared:                 0.2966
 No. Observations:                3719   F-statistic:                    236.76
-Date:                Mon, Nov 15 2021   P-value (F-stat)                0.0000
-Time:                        20:09:45   Distribution:                  chi2(3)
+Date:                Wed, Nov 17 2021   P-value (F-stat)                0.0000
+Time:                        17:46:42   Distribution:                  chi2(3)
 Cov. Estimator:                robust                                         
                                                                               
                               Parameter Estimates                               
@@ -250,8 +250,8 @@ Years of Schooling and Distance from College for Part 2d(1)
 Dep. Variable:           years_school   R-squared:                       0.006
 Model:                            OLS   Adj. R-squared:                  0.006
 Method:                 Least Squares   F-statistic:                     24.78
-Date:                Mon, 15 Nov 2021   Prob (F-statistic):           6.72e-07
-Time:                        20:09:45   Log-Likelihood:                -7469.8
+Date:                Wed, 17 Nov 2021   Prob (F-statistic):           6.72e-07
+Time:                        17:46:42   Log-Likelihood:                -7469.8
 No. Observations:                3719   AIC:                         1.494e+04
 Df Residuals:                    3717   BIC:                         1.496e+04
 Df Model:                           1                                         
@@ -278,8 +278,8 @@ Years of Schooling and Distance from College for Part 2d(2)
 Dep. Variable:           years_school   R-squared:                       0.104
 Model:                            OLS   Adj. R-squared:                  0.103
 Method:                 Least Squares   F-statistic:                     146.9
-Date:                Mon, 15 Nov 2021   Prob (F-statistic):           5.93e-90
-Time:                        20:09:45   Log-Likelihood:                -7277.2
+Date:                Wed, 17 Nov 2021   Prob (F-statistic):           5.93e-90
+Time:                        17:46:42   Log-Likelihood:                -7277.2
 No. Observations:                3719   AIC:                         1.456e+04
 Df Residuals:                    3715   BIC:                         1.459e+04
 Df Model:                           3                                         
