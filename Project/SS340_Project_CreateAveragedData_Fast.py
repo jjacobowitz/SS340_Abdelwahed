@@ -73,4 +73,4 @@ final_result = pd.DataFrame(average_data, columns=["fips",
                                                    "disasters"])
 
 # Save csv
-final_result.to_csv("Average_Data.csv", index=False)
+final_result.to_csv("AveragedData.csv", index=False)
