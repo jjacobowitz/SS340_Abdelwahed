@@ -323,7 +323,7 @@ normal_summary = get_normal_model_summary(model, title)
 stata_summary = get_stata_model_summary(model, "Years of Schooling", title)
 
 print(f"{beta_0=:.2f}, {beta_1=:.2f}")
-print("years_school-col_dist beta_0 null hypothesis test:", end=" ")
+print("years_school-col_dist beta_1 null hypothesis test:", end=" ")
 null_hypothesis_test(p_val, alpha)
 
 # With Parental Controls
