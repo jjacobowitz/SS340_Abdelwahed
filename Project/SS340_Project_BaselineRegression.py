@@ -8,9 +8,7 @@ Final Project
 Baseline regression for the project
 """
 import pandas as pd
-import numpy as np
 import statsmodels.api as sm
-from statsmodels.base.distributed_estimation import DistributedModel
 from statsmodels.iolib.summary2 import summary_col
 
 print("Loading data...", end="")
