@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 plt.close("all")
 
-temps_data = pd.read_csv("TemperatureData.csv")
+temps_data = pd.read_csv("../Datasets/TemperatureData.csv")
 
 countyandstate = temps_data[["county","state"]].drop_duplicates().reset_index()
 

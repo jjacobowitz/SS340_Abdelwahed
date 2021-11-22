@@ -11,7 +11,7 @@ removing unnecessary columns
 import pandas as pd
 
 # most of the columns are not needed for our analysis
-disaster_data = pd.read_csv("DisasterDeclarationsSummaries.csv",
+disaster_data = pd.read_csv("../Datasets/DisasterDeclarationsSummaries.csv",
                             usecols=("state", 
                                      "fyDeclared", 
                                      "incidentType", 
@@ -29,7 +29,7 @@ for row in disaster_data.itertuples():
 disaster_data["statewide"] = disaster_data["designatedArea"] == "Statewide"
 
 disaster_data.rename(columns={"fyDeclared":"year"}, inplace=True)
-disaster_data.to_csv("DisasterData.csv", 
+disaster_data.to_csv("../Datasets/DisasterData.csv", 
                      columns=("state", 
                               "year", 
                               "incidentType", 

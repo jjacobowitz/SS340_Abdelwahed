@@ -10,8 +10,8 @@ Combine the temperature and disaster datasets
 import pandas as pd
 # import numpy as np
 
-disaster_data = pd.read_csv("DisasterData.csv")
-temps_data = pd.read_csv("TemperatureData.csv")
+disaster_data = pd.read_csv("../Datasets/DisasterData.csv")
+temps_data = pd.read_csv("../Datasets/TemperatureData.csv")
 temps_data.dropna(inplace=True)
 
 # max of mins is the smallest common value
@@ -35,4 +35,4 @@ for row in disaster_data.itertuples():
         indx &= (temps_data["fips"] == row.fips)
     temps_data.loc[indx, "disasters"] += 1
     
-temps_data.to_csv("CombinedData.csv", index=False)
+temps_data.to_csv("../Datasets/CombinedData.csv", index=False)

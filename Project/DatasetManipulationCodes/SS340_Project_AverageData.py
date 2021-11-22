@@ -24,7 +24,7 @@ if colab:
     source = ("/content/drive/MyDrive/Cooper Union 2021/Cause and Effect/"
               "Final_Project/CombinedData.csv")
 else:
-    source = "CombinedData.csv"
+    source = "../Datasets/CombinedData.csv"
 
 combined_data = pd.read_csv(source)
 
@@ -92,4 +92,4 @@ for key, data in combined_data.groupby(["state", "county"]):
 final_result = pd.DataFrame(average_data)
 
 # Convert to csv
-final_result.to_csv("Average_Data.csv", index=False)
+final_result.to_csv("../Datasets/Average_Data.csv", index=False)

@@ -30,7 +30,7 @@ def get_county_state(fip, fips2cands):
 # Import Dataset for fips to county and state lookup
 # =============================================================================
 # data of the fip code, county, and state
-fips_codes = pd.read_csv("Fips2CountyandState.csv")
+fips_codes = pd.read_csv("../Datasets/Fips2CountyandState.csv")
 fips_codes.rename(columns={"FIPS":"fips", "Name":"county", "State":"state"}, 
                   inplace=True)
 fips_codes.fips = fips_codes.apply(lambda x: f"{x['fips']:05d}", axis=1)
@@ -41,11 +41,11 @@ fips_codes.fips = fips_codes.apply(lambda x: f"{x['fips']:05d}", axis=1)
 failed = []
 # data of the fip code, year, temperature in F, and temperature in C
 if from_scratch:
-    temps_data = pd.read_csv("CountyYearlyTemperature.csv")
+    temps_data = pd.read_csv("../Datasets/CountyYearlyTemperature.csv")
     # blank columns to be filled later
     temps_data[["county", "state"]] = ""
 else:
-    temps_data = pd.read_csv("TemperatureData.csv")
+    temps_data = pd.read_csv("../Datasets/TemperatureData.csv")
     with open("failed.txt", "r") as f:
         for row in f.readlines():
             if row != '\n':
@@ -85,10 +85,10 @@ for row in temps_data.itertuples():
 print(indx)
 
 # dropping the fahrenheit data column
-temps_data.to_csv("TemperatureData.csv", 
+temps_data.to_csv("../Datasets/TemperatureData.csv", 
                   columns=("fips", "year", "tempc", "county", "state"), 
                   index=False)
-with open("failed.txt", "w") as f:
+with open("../Datasets/failed.txt", "w") as f:
     for fail in failed:
         f.write(fail+'\n')
     

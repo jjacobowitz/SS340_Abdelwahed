@@ -23,7 +23,7 @@ if colab:
     source = ("/content/drive/MyDrive/Cooper Union 2021/Cause and Effect/"
               "Final_Project/CombinedData.csv")
 else:
-    source = "CombinedData.csv"
+    source = "../Datasets/CombinedData.csv"
 
 # import the data
 combined_data = pd.read_csv(source)
@@ -73,4 +73,4 @@ final_result = pd.DataFrame(average_data, columns=["fips",
                                                    "disasters"])
 
 # Save csv
-final_result.to_csv("AveragedData.csv", index=False)
+final_result.to_csv("../Datasets/AveragedData.csv", index=False)

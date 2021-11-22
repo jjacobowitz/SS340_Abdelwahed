@@ -10,7 +10,7 @@ used to add that a disaster happened for all counties in a state
 """
 import pandas as pd
 
-temps_data = pd.read_csv("TemperatureData.csv")
+temps_data = pd.read_csv("../Datasets/TemperatureData.csv")
 
 low = temps_data["tempc"] < 20
 temps_data.loc[low, "tempc"] += 100

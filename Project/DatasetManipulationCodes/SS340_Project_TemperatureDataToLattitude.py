@@ -25,13 +25,13 @@ def get_county_state(fip, fips2cands):
     return county, state
 
 # data of the fip code, county, and state
-fips2cands = pd.read_csv("Fips2CountyandState.csv")
+fips2cands = pd.read_csv("../Datasets/Fips2CountyandState.csv")
 fips2cands.rename(columns={"FIPS":"fips", "Name":"county", "State":"state"}, 
                   inplace=True)
 # fips2cands.fips = fips2cands.fips.astype(str)
 
 # data of the fip code, year, temperature in F, and temperature in C
-data = pd.read_csv("TemperatureData.csv")
+data = pd.read_csv("../Datasets/TemperatureData.csv")
 failed = []
 
 # keep track of previous fip (they are sorted) to speed up the process
@@ -68,8 +68,8 @@ for row in data.itertuples():
                                                               lat, 
                                                               long)
 print(indx)
-data.to_csv("TemperatureData.csv", index=False)
-with open("failed.txt", "w") as f:
+data.to_csv("../Datasets/TemperatureData.csv", index=False)
+with open("../Datasets/failed.txt", "w") as f:
     f.write("indx,fip,county,state\n")
     for fail in failed:
         f.write(",".join(str(a) for a in fail)+'\n')
