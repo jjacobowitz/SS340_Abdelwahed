@@ -5,7 +5,7 @@ Fall 2021
 SS340 Cause and Effect
 Final Project
 
-Main regression analysis
+Baseline regression for the project
 """
 import pandas as pd
 import numpy as np
