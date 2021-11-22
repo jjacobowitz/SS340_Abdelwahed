@@ -37,9 +37,8 @@ stata_summary = summary_col(model,
                             regressor_order=["const", "tempc"],
                             drop_omitted=True)
 
-with open('../Results/Main_Regression_Summary.txt', 'w') as f:
-    f.write("Main Regression")
+with open('../Results/baseline_regression_summary.txt', 'w') as f:
+    f.write("Baseline Regression")
     f.write('\n')
     f.write(stata_summary.as_text())
-    f.write("\n\n\n")
 print("Done.")
