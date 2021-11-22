@@ -30,50 +30,50 @@ average_data = []
 # Loop through the entire dataset, organizing by state and county
 # Alternative is to run two for loops, one for state and one for county
 for key, data in combined_data.groupby(['state', 'county']):
-
-  # Determining how many groups to split the sliced dataframe by
-  num_groups = np.ceil(data.shape[0]/i)
-
-  # Slicing the dataframe
-  result = np.array_split(data, num_groups)
-
-  # key is like ('state', 'county'), and is derived from the groupby function
-  # This is a better alternative to using x.at[0,'state'] and x.at[0,'county']
-  # Cleaner because we know that everything is the same for those columns
-  state, county = key
-
-  # Processing the dataframe
-  for x in result:
     
-    # We reset index, because otherwise indexing will start at the next group
-    # beginning index, i.e. won't start at zero, which will make the next line
-    # not work
-    x = x.reset_index(drop = True)
-
-    # Pull out the first and last year, cast them individually, then 
-    # concatenate into a single string
-    years = str(x.at[0,'year']) + '-' + str(x.at[len(x.index)-1,'year'])
-
-    # Drop year because we don't need this, we already have the combined years
-    # as a string 
-    x = x.drop('year', axis=1)
-
-    # Calculate only numberic means (this excludes strings from the operation)
-    # note that because FIPS is the same across this dataframe, it is fine to 
-    # average it
-    row = x.mean(numeric_only=True)
+    # Determining how many groups to split the sliced dataframe by
+    num_groups = np.ceil(data.shape[0]/i)
     
-    # Append the pulled out years, state and county, giving indexes for the 
-    # columns
-    row = row.append(pd.Series([years, state, county], index = ['year', 'state', 'county']))
-
-    # Reorganize data to match original order
-    row = row.reindex(index = ['fips', 'year', 'tempc', 'county', 'state', 'disasters'])
-
-    # Append processed row into final list (more efficient to append to the list
-    # than to a dataframe, so better to convert everything at once to a 
-    # dataframe
-    average_data.append(row)
+    # Slicing the dataframe
+    result = np.array_split(data, num_groups)
+    
+    # key is like ('state', 'county'), and is derived from the groupby function
+    # This is a better alternative to using x.at[0,'state'] and x.at[0,'county']
+    # Cleaner because we know that everything is the same for those columns
+    state, county = key
+    
+    # Processing the dataframe
+    for x in result:
+    
+        # We reset index, because otherwise indexing will start at the next group
+        # beginning index, i.e. won't start at zero, which will make the next line
+        # not work
+        x = x.reset_index(drop = True)
+        
+        # Pull out the first and last year, cast them individually, then 
+        # concatenate into a single string
+        years = str(x.at[0,'year']) + '-' + str(x.at[len(x.index)-1,'year'])
+        
+        # Drop year because we don't need this, we already have the combined years
+        # as a string 
+        x = x.drop('year', axis=1)
+        
+        # Calculate only numberic means (this excludes strings from the operation)
+        # note that because FIPS is the same across this dataframe, it is fine to 
+        # average it
+        row = x.mean(numeric_only=True)
+        
+        # Append the pulled out years, state and county, giving indexes for the 
+        # columns
+        row = row.append(pd.Series([years, state, county], index = ['year', 'state', 'county']))
+        
+        # Reorganize data to match original order
+        row = row.reindex(index = ['fips', 'year', 'tempc', 'county', 'state', 'disasters'])
+        
+        # Append processed row into final list (more efficient to append to the list
+        # than to a dataframe, so better to convert everything at once to a 
+        # dataframe
+        average_data.append(row)
 
 # Convert to a dataframe
 final_result = pd.DataFrame(average_data)
