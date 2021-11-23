@@ -1,0 +1,23 @@
+Dam/Levee Break
+Drought
+Typhoon
+Biological
+Severe Ice Storm
+Other
+Snow
+Earthquake
+Freezing
+Flood
+Chemical
+Terrorist
+Hurricane
+Tornado
+Severe Storm(s)
+Fire
+Human Cause
+Toxic Substances
+Mud/Landslide
+Fishing Losses
+Volcano
+Tsunami
+Coastal Storm
