@@ -3,12 +3,12 @@ Averaged-Data Regression
 ========================
                    y    
 ------------------------
-const          -12.01***
+const          -11.84***
                (0.96)   
-tempc          0.69***  
+tempc          0.68***  
                (0.05)   
-R-squared      0.27     
-R-squared Adj. 0.15     
+R-squared      0.26     
+R-squared Adj. 0.14     
 ========================
 Standard errors in
 parentheses.

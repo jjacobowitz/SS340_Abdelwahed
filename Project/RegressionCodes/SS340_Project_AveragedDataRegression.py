@@ -13,7 +13,7 @@ from statsmodels.iolib.summary2 import summary_col
 
 print("Loading data...", end="")
 data = pd.read_csv("../Datasets/AveragedData.csv",
-                    usecols=("fips", "year", "tempc", "disasters"))
+                    usecols=("fips", "years", "tempc", "disasters"))
 print("Done.")
 
 print("Creating endogenous variable...", end="")
@@ -22,7 +22,7 @@ y = y.to_numpy().reshape(-1,1)
 print("Done.")
 
 print("Creating Dummies...", end="")
-X = pd.get_dummies(data, columns=["year", "fips"], drop_first=True)
+X = pd.get_dummies(data, columns=["years", "fips"], drop_first=True)
 print("Done.")
 
 print("Running Regression...", end="")
