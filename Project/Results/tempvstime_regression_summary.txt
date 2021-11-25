@@ -1,0 +1,16 @@
+Temperature vs Time Regression
+
+========================
+                   y    
+------------------------
+const          -30.63***
+               (0.22)   
+year           0.02***  
+               (0.00)   
+R-squared      0.98     
+R-squared Adj. 0.98     
+========================
+Standard errors in
+parentheses.
+* p<.1, ** p<.05,
+***p<.01
