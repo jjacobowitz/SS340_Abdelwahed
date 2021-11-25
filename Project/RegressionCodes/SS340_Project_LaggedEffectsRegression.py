@@ -55,8 +55,8 @@ stata_summary = summary_col(model,
                             regressor_order=["const", "tempc"],
                             drop_omitted=True)
 
-with open('../Results/Lagged_Effects_Summary.txt', 'w') as f:
-    f.write("Lagged Effect Regression")
+with open(f'../Results/lagged_effects_{lag}years_summary.txt', 'w') as f:
+    f.write(f"Lagged Effect {lag} Years Regression")
     f.write('\n')
     f.write(stata_summary.as_text())
 print("Done.")
