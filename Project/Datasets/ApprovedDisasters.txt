@@ -1,19 +1,10 @@
 Dam/Levee Break
 Drought
 Typhoon
-Severe Ice Storm
-Other
-Snow
-Earthquake
-Freezing
 Flood
 Hurricane
-Tornado
 Severe Storm(s)
 Fire
-Human Cause
 Mud/Landslide
 Fishing Losses
-Volcano
-Tsunami
 Coastal Storm
