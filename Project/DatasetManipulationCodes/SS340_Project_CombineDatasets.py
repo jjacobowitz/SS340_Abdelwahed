@@ -8,11 +8,14 @@ Final Project
 Combine the temperature and disaster datasets
 """
 import pandas as pd
-# import numpy as np
 
 disaster_data = pd.read_csv("../Datasets/DisasterData.csv")
 temps_data = pd.read_csv("../Datasets/TemperatureData.csv")
 temps_data.dropna(inplace=True)
+
+# only use disasters that might be correlated with climate change
+with open("../Datasets/ApprovedDisasters.txt", "r") as f:
+    approved_disasters = [disaster.strip() for disaster in f.readlines()]
 
 # max of mins is the smallest common value
 # min of maxes is the largest common value
@@ -27,6 +30,8 @@ disaster_data = disaster_data[(disaster_data["year"] <= max_year)
 temps_data["disasters"] = 0
 
 for row in disaster_data.itertuples():
+    if row.incidentType not in approved_disasters:
+        continue
     year = row.year
     indx = temps_data["year"] == year
     if row.statewide:
