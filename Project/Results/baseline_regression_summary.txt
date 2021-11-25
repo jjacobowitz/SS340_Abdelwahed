@@ -3,16 +3,14 @@ Baseline Regression
 =======================
                   y    
 -----------------------
-const          -3.87***
+const          -4.23***
                (0.31)  
-tempc          0.22*** 
+tempc          0.23*** 
                (0.02)  
-R-squared      0.14    
+R-squared      0.13    
 R-squared Adj. 0.12    
 =======================
 Standard errors in
 parentheses.
 * p<.1, ** p<.05,
 ***p<.01
-
-
