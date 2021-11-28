@@ -3,8 +3,8 @@ Temperature vs Time Regression
 ========================
                    y    
 ------------------------
-const          -30.63***
-               (0.22)   
+const          -30.33***
+               (0.20)   
 year           0.02***  
                (0.00)   
 R-squared      0.98     

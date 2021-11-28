@@ -14,7 +14,7 @@ from statsmodels.iolib.summary2 import summary_col
 print("Loading data...", end="")
 data = pd.read_csv("../Datasets/TemperatureData.csv",
                     usecols=("fips", "year", "tempc"))
-data = data[(data.year >= 1963) & (data.year <= 2016)]
+data = data[(data.year >= 1963) & (data.year <= 2019)]
 print("Done.")
 
 print("Creating endogenous variable...", end="")
