@@ -13,7 +13,6 @@ import numpy as np
 import json
 import pandas as pd
 
-show = False
 pio.renderers.default = "browser"
 # pio.renderers.default = "png"
 
@@ -40,7 +39,9 @@ for year in set(df.year):
                             geojson=counties,
                             locations='fips',
                             color=key,
-                            color_continuous_scale="Viridis",
+                            color_continuous_scale=("Bluered"
+                                                    if key == "tempc"
+                                                    else "Viridis"),
                             range_color=range_color[key],
                             scope="usa",
                             labels={key: value},
@@ -48,4 +49,4 @@ for year in set(df.year):
         fig.update_layout(title=f"USA {value} in {year}")
 
         fig.write_image(f"figures/SS340_map_{year}{key}.png")
-        fig.show()
+        # fig.show()
