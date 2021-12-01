@@ -27,8 +27,7 @@ range_color = {"tempc": [df.tempc.min(), df.tempc.max()],
                "disasters": [df.disasters.min(), df.disasters.max()]}
 
 for year in set(df.year):
-    if year % 5:
-        continue
+    print(year)
 
     data = df[df.year == year][["fips", "tempc", "disasters"]]
 
