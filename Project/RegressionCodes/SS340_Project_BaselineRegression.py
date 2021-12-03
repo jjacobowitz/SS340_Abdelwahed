@@ -5,7 +5,7 @@ Fall 2021
 SS340 Cause and Effect
 Final Project
 
-Baseline regression for the project
+Baseline regression with time trends for the project
 
 Includes county FE
 
@@ -18,7 +18,7 @@ from statsmodels.iolib.summary2 import summary_col
 
 print("Loading data...", end="")
 data = pd.read_csv("../Datasets/CombinedData.csv",
-                   usecols=("fips", "year", "tempc", "disasters"))
+                   usecols=("fips", "tempc", "disasters"))
 print("Done.")
 
 print("Creating endogenous variable...", end="")
