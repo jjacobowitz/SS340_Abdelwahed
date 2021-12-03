@@ -1,15 +1,15 @@
-Baseline Regression 2
+Baseline Regression
 
-========================
-                   y    
-------------------------
-const          -13.51***
-               (0.29)   
-tempc          0.12***  
-               (0.01)   
-R-squared      0.04     
-R-squared Adj. 0.02     
-========================
+=======================
+                  y    
+-----------------------
+const          -2.92***
+               (0.13)  
+tempc          0.18*** 
+               (0.01)  
+R-squared      0.04    
+R-squared Adj. 0.02    
+=======================
 Standard errors in
 parentheses.
 * p<.1, ** p<.05,
