@@ -1,0 +1,16 @@
+Lagged Effect -2 Years Regression
+
+=======================
+                  y    
+-----------------------
+const          -1.30***
+               (0.19)  
+tempc          0.07*** 
+               (0.01)  
+R-squared      0.13    
+R-squared Adj. 0.12    
+=======================
+Standard errors in
+parentheses.
+* p<.1, ** p<.05,
+***p<.01
