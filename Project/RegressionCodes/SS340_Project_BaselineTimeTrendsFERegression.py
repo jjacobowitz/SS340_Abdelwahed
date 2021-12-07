@@ -10,7 +10,7 @@ Baseline regression with time trends and time fixed effects for the project
 Includes county FE, linear time trends, and time fixed effects
 
 Regression:
-    disasters_{i,t} = b0 + b1 tempc_{i,t} + b2 year + a_i + T_t + e_{i,t}
+    disasters_{i,t} = b0 + b1 tempc_{i,t} + b2 t + a_i + T_t + e_{i,t}
 """
 import pandas as pd
 import statsmodels.api as sm
