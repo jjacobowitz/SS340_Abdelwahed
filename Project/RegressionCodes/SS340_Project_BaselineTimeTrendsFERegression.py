@@ -28,6 +28,7 @@ print("Done.")
 
 print("Creating Dummies...", end="")
 X = pd.get_dummies(data, columns=["year", "fips"], drop_first=True)
+X["year"] = data.year
 print("Done.")
 
 print("Running Regression...", end="")

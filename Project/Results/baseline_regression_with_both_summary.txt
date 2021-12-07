@@ -3,8 +3,8 @@ Baseline Regression with Both
 =======================
                   y    
 -----------------------
-const          -4.23***
-               (0.31)  
+const          -0.58***
+               (0.02)  
 tempc          0.23*** 
                (0.02)  
 R-squared      0.13    
