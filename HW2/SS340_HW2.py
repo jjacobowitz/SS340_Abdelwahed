@@ -24,27 +24,29 @@ with open("summary.txt", "w") as f:
 # =============================================================================
 # Useful Functions
 # =============================================================================
+
+
 def run_regression(x, y, xlabel, ylabel, title, save_title):
     # add the x data to the model
     x_sm = sm.add_constant(x)
-    
+
     # fit the model using robust regression
     model = sm.OLS(y, x_sm).fit(cov_type="HC1")
     print(model.summary())
-    
+
     # create and print the stata-style summary table; save to a txt
     stata_summary = summary_col(model, stars=True, float_format='%0.2f')
     print(stata_summary)
     with open('summary.txt', 'a') as f:
         f.write(stata_summary.as_text())
-    
+
     # add new x data for the plot fit line
     x_cont = np.linspace(x.min(), x.max(), 1000)
     x_cont_sm = sm.add_constant(x_cont)
-    
+
     # generate the regression y data
     y_fit = model.predict(x_cont_sm)
-    
+
     # plot the data with the regression line
     plt.figure()
     plt.scatter(x, y, marker='.', label="data")
@@ -56,16 +58,16 @@ def run_regression(x, y, xlabel, ylabel, title, save_title):
     plt.tight_layout()
     plt.show()
     plt.savefig(save_title)
-    
-    
-    
+
     return model.params, model.pvalues[1], stata_summary
+
 
 def reject_null(p_val, alpha):
     """returns True if the null hypothesis is rejected, False if it fails to be
     rejected. Bases the test on the p-value.
     """
     return p_val <= alpha
+
 
 def null_hypothesis_test(p_val, alpha):
     """runs the null hypothesis test"""
@@ -74,10 +76,11 @@ def null_hypothesis_test(p_val, alpha):
     else:
         print(f"Fail to reject the null hypothesis with alpha = {alpha*100}%")
 
+
 # =============================================================================
 # Data Import, Part 2(a)
 # =============================================================================
-# I put the important column names into a txt file to read in. 
+# I put the important column names into a txt file to read in.
 # It is much cleaner.
 with open("important_columns.txt", "r") as f:
     columns = f.read().split(",")
@@ -93,15 +96,15 @@ summary_cols = ["fincbtxm",
                 "foodpq",
                 "fdhomecq",
                 "fdhomepq"]
-    
+
 # import the 4 quarters of data
-data_19q1 = pd.read_csv("fmli191x.csv", usecols=columns)
-data_19q2 = pd.read_csv("fmli192.csv", usecols=columns)
-data_19q3 = pd.read_csv("fmli193.csv", usecols=columns)
-data_19q4 = pd.read_csv("fmli194.csv", usecols=columns)
+data_19q1 = pd.read_csv("datasets/fmli191x.csv", usecols=columns)
+data_19q2 = pd.read_csv("datasets/fmli192.csv", usecols=columns)
+data_19q3 = pd.read_csv("datasets/fmli193.csv", usecols=columns)
+data_19q4 = pd.read_csv("datasets/fmli194.csv", usecols=columns)
 
 # combine into one variable
-data_19 = pd.concat([data_19q1, data_19q2, data_19q3, data_19q4], 
+data_19 = pd.concat([data_19q1, data_19q2, data_19q3, data_19q4],
                     ignore_index=True)
 
 # =============================================================================
@@ -110,7 +113,8 @@ data_19 = pd.concat([data_19q1, data_19q2, data_19q3, data_19q4],
 # save and print the summary statistics of the data; save to a csv
 data_19_describe = data_19[summary_cols].describe().round(2)
 important_statistics = ["mean", "std", "min", "max"]
-data_19_describe.loc[important_statistics].to_csv("SS340_HW2_Describe.csv")
+path = "results/SS340_HW2_Describe.csv"
+data_19_describe.loc[important_statistics].to_csv(path)
 print(data_19_describe)
 
 # =============================================================================
@@ -146,7 +150,8 @@ summary_cols2 = ["fincbtxm",
                  "fdhome",
                  "hiincome"]
 data_19_describe2 = data_19[summary_cols2].describe().round(2)
-data_19_describe2.loc[important_statistics].to_csv("SS340_HW2_Describe2.csv")
+path = "results/SS340_HW2_Describe2.csv"
+data_19_describe2.loc[important_statistics].to_csv(path)
 print(data_19_describe2)
 
 # =============================================================================
@@ -162,7 +167,7 @@ result = run_regression(data_19["fincbtxm"].to_numpy(),
                         "Income [$/yr.]",
                         "Total Expenditure [$/yr.]",
                         "Expenditure vs Income for All Data",
-                        "SS340_HW1_expvsincall.png")
+                        "figures/SS340_HW1_expvsincall.png")
 
 [beta_0, beta_1], p_val, stata_summary = result
 
@@ -180,7 +185,7 @@ result = run_regression(data_19["fincbtxm"][data_19["hiincome"]].to_numpy(),
                         "Income [$/yr.]",
                         "Total Expenditure [$/yr.]",
                         "Expenditure vs Income for High-Income HHs",
-                        "SS340_HW1_expvsinchiincome.png")
+                        "figures/SS340_HW1_expvsinchiincome.png")
 
 [beta_0, beta_1], p_val, stata_summary = result
 
@@ -195,7 +200,7 @@ result = run_regression(data_19["fincbtxm"][~data_19["hiincome"]].to_numpy(),
                         "Income [$/yr.]",
                         "Total Expenditure [$/yr.]",
                         "Expenditure vs Income for Low-Income HHs",
-                        "SS340_HW1_expvsincloincome.png")
+                        "figures/SS340_HW1_expvsincloincome.png")
 
 [beta_0, beta_1], p_val, stata_summary = result
 
@@ -214,7 +219,7 @@ result = run_regression(data_19["fincbtxm"].to_numpy(),
                         "Income [$/yr.]",
                         "Total Expenditure on Food at Home [$/yr.]",
                         "Expenditure on Food at Home vs Income",
-                        "SS340_HW1_fdhomevsincome.png")
+                        "figures/SS340_HW1_fdhomevsincome.png")
 
 [beta_0, beta_1], p_val, stata_summary = result
 
@@ -228,7 +233,7 @@ result = run_regression(data_19["fincbtxm"].to_numpy(),
                         "Income [$/yr.]",
                         "Total Expenditure on Alcohol [$/yr.]",
                         "Expenditure on Alcohol vs Income",
-                        "SS340_HW1_alcbevvsincome.png")
+                        "figures/SS340_HW1_alcbevvsincome.png")
 
 [beta_0, beta_1], p_val, stata_summary = result
 
