@@ -15,7 +15,7 @@ Example Python program displaying the following things:
     * Histogram and scatter plots
     * Linear regression
 """
-#%% Importing libraries
+# %% Importing libraries
 from scipy.stats import t, ttest_1samp
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -25,16 +25,16 @@ from sklearn.metrics import r2_score
 
 plt.close("all")    # close any open plots
 
-#%% Load data using Pandas
+# %% Load data using Pandas
 # can also import csv using pd.read_csv() or excel using pd.read_xlsx()
 auto = pd.read_stata("auto.dta")
 
-#%% Summary statistics
+# %% Summary statistics
 # DataFrame.describe() summarizes the DataFrame
 auto_describe = auto.describe()
 print(auto_describe.round(2))    # print the summary statistics to the console
 
-#%% Correlation Matrix
+# %% Correlation Matrix
 # DataFrame.corr() creates a correlation matrix of the DataFrame
 corr = auto.corr()
 print(corr.round(2))            # print correlation matrix to the console
@@ -46,12 +46,12 @@ plt.tight_layout()
 plt.title("Auto Dataset Correlation Matrix")
 plt.show()
 
-#%% Add new data
+# %% Add new data
 # Add new data column titled "inefficient" which shows True if mpg < 30
 auto["inefficient"] = "efficient"
 auto["inefficient"][auto["mpg"] < 30] = "inefficient"
 
-#%% t-test
+# %% t-test
 # H0: price = 6000
 # Ha: price != 6000
 H0 = 6000
@@ -71,7 +71,7 @@ if p_val > alpha:
 else:
     print("Reject the null hypothesis")
 
-#%% Plots
+# %% Plots
 # Plot a histogram using matplotlib
 plt.figure()
 # alternative: auto["price"].hist()
@@ -90,7 +90,7 @@ plt.title("Price vs MPG")
 plt.show()
 
 # Plot side-by-side plots of foreign vs domestic price vs mpg data
-fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(10,5))
+fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(10, 5))
 mask = auto["foreign"] == "Foreign"     # True-False vector
 
 # foreign plot
@@ -105,14 +105,14 @@ ax2.set_xlabel("Price")
 ax2.set_title("Price vs MPG of Domestic Cars")
 fig.show()
 
-#%% Linear regression
+# %% Linear regression
 # linear regression of weight on length
 lin_regress = linear_model.LinearRegression()   # linear regression model
 
 # reshape the data because sklearn wants column vectors
 # -1 means it should decide how many rows, rather than explicitly saying
-X = auto["weight"].to_numpy().reshape(-1,1)
-y = auto["length"].to_numpy().reshape(-1,1)
+X = auto["weight"].to_numpy().reshape(-1, 1)
+y = auto["length"].to_numpy().reshape(-1, 1)
 
 # providing the data to be fit
 lin_regress.fit(X, y)
@@ -138,8 +138,8 @@ plt.show()
 
 # multiple linear regression of weight and length on mpg
 mult_lin_regress = linear_model.LinearRegression()
-X = auto[["weight", "length"]].to_numpy().reshape(-1,2)
-y = auto["mpg"].to_numpy().reshape(-1,1)
+X = auto[["weight", "length"]].to_numpy().reshape(-1, 2)
+y = auto["mpg"].to_numpy().reshape(-1, 1)
 
 mult_lin_regress.fit(X, y)
 
@@ -149,4 +149,3 @@ r_squared = r2_score(y_pred, y)
 coefs = mult_lin_regress.coef_
 intercept = mult_lin_regress.intercept_
 print(f"{coefs=}, {intercept=}, {r_squared=}")
-

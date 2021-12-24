@@ -27,4 +27,3 @@ print(model.summary())
 
 # rint the stata-style summary table
 print(summary_col(model, stars=True))
-
