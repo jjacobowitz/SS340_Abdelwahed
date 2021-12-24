@@ -4,8 +4,8 @@ Birthweight vs. Cigarettes Smoked Per Day
 Dep. Variable:            birthweight   R-squared:                       0.020
 Model:                            OLS   Adj. R-squared:                  0.020
 Method:                 Least Squares   F-statistic:                     2806.
-Date:                Sun, 31 Oct 2021   Prob (F-statistic):               0.00
-Time:                        15:23:19   Log-Likelihood:            -1.1435e+06
+Date:                Thu, 23 Dec 2021   Prob (F-statistic):               0.00
+Time:                        22:15:19   Log-Likelihood:            -1.1435e+06
 No. Observations:              146703   AIC:                         2.287e+06
 Df Residuals:                  146701   BIC:                         2.287e+06
 Df Model:                           1                                         
