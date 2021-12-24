@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 plt.close("all")
 
 # wipe the summary file
-with open("summary.txt", "w") as f:
+with open("results/summary.txt", "w") as f:
     f.truncate()
 
 # =============================================================================
@@ -37,7 +37,7 @@ def run_regression(x, y, xlabel, ylabel, title, save_title):
     # create and print the stata-style summary table; save to a txt
     stata_summary = summary_col(model, stars=True, float_format='%0.2f')
     print(stata_summary)
-    with open('summary.txt', 'a') as f:
+    with open('results/summary.txt', 'a') as f:
         f.write(stata_summary.as_text())
 
     # add new x data for the plot fit line
