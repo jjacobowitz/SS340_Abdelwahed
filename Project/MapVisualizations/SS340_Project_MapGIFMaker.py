@@ -23,4 +23,4 @@ for end in ["tempc", "disasters"]:
             images.extend(repeated)
         images.append(imageio.imread(filename))
     kwargs = {'duration': 0.1}     # frame duration in seconds
-    imageio.mimsave(f'figures/SS350_map_{end}.gif', images, **kwargs)
+    imageio.mimsave(f'figures/SS340_map_{end}.gif', images, **kwargs)
